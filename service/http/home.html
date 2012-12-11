@@ -1,0 +1,580 @@
+<html>
+<!DOCTYPE body PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+    <meta charset="utf-8">
+	<script type="text/javascript" src='resources/js/jquery.min.js'></script>
+    <script type="text/javascript" src='resources/js/bootstrap/bootstrap-twipsy.js'></script>
+    <script type="text/javascript" src='resources/js/jquery-plugins/harvesthq-chosen/chosen.jquery.min.js'></script>
+	<link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="resources/js/jquery-plugins/harvesthq-chosen/chosen.css" rel="stylesheet"/>
+	<link href="resources/css/daw.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <h3 class='title'><a href="/home.html">Daw</a></h3>
+          <ul class="nav">
+            <li><a href="#" class='menu-link' id='menu-docs'>Docs</a></li>
+            <li><a href="#" class='menu-link' id='menu-modules'>Modules</a></li>
+            <li><a href="#" class='menu-link' id='menu-objects'>Objects</a></li>
+            <li><a href="#" class='menu-link' id='menu-operations'>Operations</a></li>
+          </ul>
+        <p class="pull-right">Current version <a id='version' href="#"></a></p>
+        </div>
+      </div>
+    </div>
+</div>
+<header class="jumbotron masthead" id="overview">
+      <div class="inner">
+        <div class="container">
+          <h1>Daw - Data At Will</h1>
+          <p class="lead">
+            Access any data from 3rd party vendors, and publish your data to them<br/>
+          </p>
+        </div><!-- /container -->
+      </div>
+</header>
+<div class="quickstart">
+      <div class="container">
+        <div class="row">
+          <div class="span5">
+            <h6>Documentation</h6>
+            <p>Browse project documentation, installation guide and how-tos. .</p>
+            <p><a href="javascript:void(0);" onclick='javascript:showDocs();' class="btn secondary">Access Docs »</a></p>
+          </div>
+          <div class="span5">
+            <h6>What's in your build?</h6>
+            <p>Get more knowledge on what has been installed on current application</p>
+            <p><a href="javascript:void(0);" onclick='javascript:showConfig();' class="btn secondary">Application Details »</a></p>
+          </div>
+          <div class="span5">
+            <h6>Try it now !</h6>
+            <p>Get a list of all operations available to you, and run in a click any of them.</p>
+            <p><a href="javascript:void(0);" onclick='javascript:showOperations();' class="btn primary">Run operations »</a></p>
+          </div>
+        </div><!-- /row -->
+      </div>
+    </div>
+    <div class='content'>
+        <div class="sidebar" >
+            <div class='inner' id='sidebar'>
+                Side panel
+            </div>
+        </div>
+        <div class="center single" id='contents'>
+        </div>
+    </div>
+
+
+  <script>
+
+  var modules = {};
+  var objects = {};
+  var operations = {};
+  var lastFormat = 'Json';
+
+	$(document).ready(function() {
+		// Page initialization
+
+		$('.menu-link').click(function() {
+
+			var sideTitle = null;
+            var sideCall = null;
+            var contentsTitle = null;
+			var contentsCall = null;
+
+			switch (this.id) {
+				case 'menu-docs':
+                    sideTitle = 'Documentation';
+					sideCall = '/doc/toc';
+					contentsCall = '/resources/html/homeDocs.html';
+					break;
+				case 'menu-objects':
+                    sideTitle = 'Objects';
+					sideCall = '/object/list';
+					contentsCall = '/resources/html/homeObjects.html';
+					break;
+				case 'menu-modules':
+                    sideTitle = 'Modules';
+					sideCall = '/module/list';
+					contentsCall = '/resources/html/homeModules.html';
+					break;
+                case 'menu-operations':
+                    sideTitle = 'Operations';
+                    sideCall = '/operation/list';
+                    contentsCall = '/resources/html/homeOperations.html';
+                    break;
+			}
+
+			if (sideCall) {
+                $('#sidebar').show();
+				jQuery.ajax(sideCall, {
+					complete: function(data, status, xhr) {
+                        display(sideCall, '#sidebar', sideTitle, data.responseText);
+                    }
+				});
+			} else {
+                $('#sidebar').hide();
+            }
+
+			if (contentsCall) {
+                jQuery.ajax(contentsCall, {
+                    complete: function(data, status, xhr) {
+                        display(contentsCall, '#contents', contentsTitle, data.responseText);
+                    }
+                });
+			}
+
+		});
+
+
+        $(function () {
+          $("a[rel=twipsy]").twipsy({
+            live: true
+          })
+        })
+
+        jQuery.ajax('/core/version', {
+            complete: function(data, status, xhr) {
+                $('#version')[0].innerHTML = data.responseText;
+            }
+        });
+
+
+	});
+
+    var showDocs = function() {
+        var sideTitle = 'Documentation';
+        var sideCall = '/doc/toc';
+        var contentsTitle = 'Documentation Summary';
+        var contentsCall = '/resources/html/homeDocs.html';
+
+        $('#sidebar').show();
+        jQuery.ajax(sideCall, {
+            complete: function(data, status, xhr) {
+                display(sideCall, '#sidebar', sideTitle, data.responseText);
+            }
+        });
+
+        jQuery.ajax(contentsCall, {
+            complete: function(data, status, xhr) {
+                display(contentsCall, '#contents', contentsTitle, data.responseText);
+            }
+        });
+    }
+
+    var showOperations = function() {
+        var sideTitle = 'Operations';
+        var sideCall = '/operation/list';
+        var contentsTitle = 'Operations Summary';
+        var contentsCall = '/resources/html/homeOperations.html';
+
+        $('#sidebar').show();
+        jQuery.ajax(sideCall, {
+            complete: function(data, status, xhr) {
+                display(sideCall, '#sidebar', sideTitle, data.responseText);
+            }
+        });
+
+        jQuery.ajax(contentsCall, {
+            complete: function(data, status, xhr) {
+                display(contentsCall, '#contents', contentsTitle, data.responseText);
+            }
+        });
+    }
+
+    var showConfig = function() {
+        var contentsTitle = 'Application Information';
+        var contentsCall = '/core/info';
+
+        $('#sidebar').hide();
+        $('#contents').addClass('single');
+
+        jQuery.ajax(contentsCall, {
+            complete: function(data, status, xhr) {
+                display(contentsCall, '#contents', contentsTitle, data.responseText);
+                $('#contents').addClass('single');
+            }
+        });
+    }
+
+    var run = function(label, format, resetArgs) {
+
+    	var operation = operations[label];
+    	if (format === undefined || format === null) {
+    		format = lastFormat;
+    	}
+
+        if (resetArgs === undefined) {
+        	resetArgs = false;
+        }
+
+    	lastFormat = format;
+
+        var call = '/' + (operation['object'] !== undefined ? operation['object'] : operation['module'])
+            + '/' + (operation['operation'] !== undefined ? operation['operation'] : operation['label'])
+            + '/?';
+
+        call += '_format=' + format + '&';
+
+    	var elmts = $('.arg');
+
+    	var args = {};
+    	var chzenCmpts = {};
+    	if (!resetArgs) {
+	    	for (var i = 0; i < elmts.length; i++) {
+
+	            var elmt = elmts[i];
+	    		var value = elmt.value;
+	    		if (elmt.type == 'select-multiple') {
+	    			value = '' ;
+	    	        var selection = $('#' + elmt.id).val();
+	    	        if (selection != null && selection.length > 0) {
+	                    value = '[' ;
+	                    for (var j = 0; j < selection.length; j++) {
+	                        value += '"' + selection[j] + '"' ;
+	                        if (j < selection.length - 1) {
+	                            value += ',';
+	                        }
+	                    }
+	                    value += ']' ;
+	    	        }
+	    	        chzenCmpts[elmt.name] = eval(value);
+	    		} else if (elmt.getAttribute('x:format') === 'boolean') {
+	    			value = elmt.checked ?  1 : 0;
+	    		}
+
+	    	    call += elmt.name + '=' + encodeURIComponent(value) + '&';
+	    	    args[elmt.name] = value;
+	    	}
+    	}
+
+        jQuery.ajax(call, {
+            complete: function(data, status, xhr) {
+            	contents = '<h3>';
+            	contents += '<small class="format-selection">';
+            	contents += '<span format="Json" class="format-option ' + (format === 'Json' ? 'selected' : 'selection') + '">Json</span>';
+                contents += ' | ';
+            	contents += '<span format="TextIndent" class="format-option ' + (format === 'TextIndent' ? 'selected' : 'selection') + '">Text Indent</span>';
+            	contents += '</small>';
+                contents += 'Results for ' + label + '</h3>';
+
+            	if (operation['description'] !== undefined || operation['usage'] !== undefined) {
+            		contents += '<blockquote>';
+	            	if (operation['description'] !== undefined) {
+	            		contents += encode(operation['description']);
+	            	}
+	            	if (operation['usage'] !== undefined) {
+	                    contents += '<small>' + encode(operation['usage']) + '</small>';
+	                }
+
+	            	contents += '<small>API call: <a target="apicall" href="' + call + '">' + encode(call) + '</a></small>';
+	                contents += '</blockquote>';
+            	}
+
+            	if (operation['args'] !== undefined) {
+            		contents += '<div class="args"><h4>Arguments</h4>';
+                    contents += '<div class="btn secondary right" onclick="run(\'' + label + '\');">Run</div>';
+            		contents += '<ul>';
+                    for (var argName in operation['args']) {
+                    	var argInfo = operation['args'][argName];
+
+                    	contents += '<li><span class="label ' + (argInfo['validation'] != null && argInfo['validation'].indexOf('required') !== -1 ? 'warning' : '') + '">' + argName + '</span>';
+
+                    	if (argInfo['options'] !== undefined) {
+                    		initOptionsComponent(argName, argInfo, args);
+
+                    	} else if (argInfo['format'] == 'boolean') {
+                    	    contents += '<input x:format="boolean" class="arg" type="checkbox" name="' + argName + '" value="1" ' + (args[argName] !== undefined ? (args[argName] == 1 || args[argName] == true ? 'checked' : '') : (argInfo['default'] ? (argInfo['default'] == 1 || argInfo['default'] == true ? 'checked' : '') : '')) + '/>';
+                        } else if (argInfo['format'] == 'text') {
+                            contents += '<textarea class="arg" name="' + argName + '"  style="display: block; margin-top: 5px; width: 95%; height: 100px">' + (args[argName] !== undefined ? args[argName] : (argInfo['default'] ? argInfo['default'] : '')) + '</textarea>';
+                        } else if (argInfo['format'].indexOf('list(') === 0) {
+                        	contents += '<textarea class="arg" name="' + argName + '"  style="display: block; margin-top: 5px; width: 95%; height: 100px">' + (args[argName] !== undefined ? args[argName] : (argInfo['default'] ? argInfo['default'] : '')) + '</textarea>';
+                        } else {
+                            contents += '<input class="arg" type="text" name="' + argName + '" value="' + (args[argName] !== undefined ? args[argName] : (argInfo['default'] ? argInfo['default'] : '')) + '"/>';
+                        }
+
+                    	if (argInfo['hint'] !== undefined) {
+                    		contents += '<a href="#" class="hint" rel="twipsy" data-offset="10" data-placement="right" data-original-title="' + argInfo['hint'] + '">' + '<span class="description">' + (argInfo['description'] !== undefined ? argInfo['description'] : '?') + '</span>' + '</a>';
+                    	} else if (argInfo['description'] !== undefined) {
+                            contents += '<span class="description">' + argInfo['description'] + '</span>';
+                    	}
+                    	contents += '</li>';
+                    }
+                    contents += '</ul></div>';
+            	}
+
+                contents += '<pre class="results" style="display:none">';
+            	if (data.status != 200) {
+            		eval("var error = " + data.responseText);
+            		contents += '<span class="label error" title="Status code: ' + data.status + '">Error</span><span style="font-weight: bold; padding-left: 10px;">' + error.message + '</span>';
+            		contents += '<br/><br/>';
+                    for (var errLabel in error) {
+                    	contents += '<span class="label">' + errLabel + '</span><span style="font-weight: bold; padding-left: 10px;">' + error[errLabel] + '</span><br/>';
+                    }
+            	} else {
+                    contents += data.responseText;
+            	}
+                contents += '</pre>';
+
+                $('#contents')[0].innerHTML = contents;
+            	$('.format-option').click(function(evt) {
+            		run(label, evt.target.getAttribute('format'));
+            	});
+
+                $('pre.results').fadeIn();
+                $('.chzn-select').chosen({allow_single_deselect:true});
+
+                for (var elmName in chzenCmpts) {
+                	$('.chzn-select[name=' + elmName + ']').val(chzenCmpts[elmName]);
+                	$('.chzn-select[name=' + elmName + ']').trigger("liszt:updated");
+                }
+            }
+        });
+    }
+
+    var initOptionsComponent = function(argName, argInfo, args) {
+        contents += '<select ' + (argInfo['multi'] == true ? 'multiple' : '') + ' allow_single_deselect=true class="arg chzn-select" name="' + argName + '">';
+        if (typeof argInfo['options'] === 'string') {
+            if (argInfo['options'][0] === '/') {
+                // Get list of options from an API call
+                jQuery.ajax(argInfo['options'], {
+                    complete: function(data, status, xhr) {
+                        eval("var options = " + data.responseText);
+                        //contents = '<option value="">Select an option</option>';
+                        for (var key in options) {
+                            var value = options[key];
+                            var selected = false;
+                            if (args[argName] !== undefined) {
+                                if (typeof args[argName] === 'string') {
+                                    if (args[argName].length !== 0) {
+                                        eval("var selectedOptions = " + args[argName]);
+                                        for (var selIdx = 0; selIdx < selectedOptions.length; selIdx++) {
+                                            if (selectedOptions[selIdx] === key) {
+                                                selected = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    selected = args[argName] == key;
+                                }
+                            } else  if (argInfo['default'] !== undefined) {
+                                selected = argInfo['default'][key] !== undefined || argInfo['default'] == key;
+                            }
+                            contents += '<option value="' + key + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
+                        }
+
+                        $('.arg[name=' + argName + ']').append(contents);
+                        $('.arg[name=' + argName + ']').trigger("liszt:updated");
+                    }
+                });
+
+            } else {
+                // Get list of options from object key/value pair
+                var tokens = argInfo['options'].split(':');
+                var call = '/object/optionList/?object=' + tokens[0] + '&key=' + tokens[1] + '&value=' + tokens[2];
+                jQuery.ajax(call, {
+                    complete: function(data, status, xhr) {
+                        eval("var options = " + data.responseText);
+                        contents = '';
+                        //contents = '<option value="">Select an option</option>';
+                        for (var key in options) {
+                            var value = options[key];
+                            var selected = false;
+                            if (args[argName] !== undefined) {
+                                if (typeof args[argName] === 'string') {
+                                    if (args[argName].length !== 0) {
+                                        eval("var selectedOptions = " + args[argName]);
+                                        for (var selIdx = 0; selIdx < selectedOptions.length; selIdx++) {
+                                            if (selectedOptions[selIdx] === key) {
+                                                selected = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    selected = args[argName] == key;
+                                }
+                            } else  if (argInfo['default'] !== undefined) {
+                                selected = argInfo['default'][key] !== undefined || argInfo['default'] == key;
+                            }
+                            contents += '<option value="' + key + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
+                        }
+
+                        $('.arg[name=' + argName + ']').append(contents);
+                        $('.arg[name=' + argName + ']').trigger("liszt:updated");
+                    }
+                });
+            }
+
+        } else {
+            if (argInfo['multi'] !== true) {
+                contents += '<option value="">Select an option</option>';
+            }
+            for (var optIdx in argInfo['options']) {
+                opt = argInfo['options'][optIdx];
+                var selected = false;
+                if ((args[argName] !== undefined && args[argName] == opt)) {
+                    selected  = true;
+                } else  if (argInfo['default'] !== undefined) {
+                    selected = argInfo['default'][opt] !== undefined || argInfo['default'] == opt;
+                }
+                contents += '<option name="' + opt + '" value="' + opt + '" ' + (selected ? 'selected' : '') + '/>' + opt + '</option>';
+            }
+        }
+        contents += '</select>';
+
+        return contents;
+    }
+
+    var objectInfo = function(objectName) {
+        var call = '/object/info/?_format=TextIndent&name=' + objectName;
+        jQuery.ajax(call, {
+            complete: function(data, status, xhr) {
+                display(call, '#contents', 'Object info: ' + objectName, data.responseText, true);
+            }
+        });
+    }
+
+    var moduleInfo = function(module) {
+        var call = '/module/info/?_format=TextIndent&name=' + module;
+        jQuery.ajax(call, {
+            complete: function(data, status, xhr) {
+                display(call, '#contents', 'Module info: ' + module, data.responseText, true);
+            }
+        });
+    }
+
+    var showDoc = function(title, doc) {
+        var call = '/doc/get/?_format=TextIndent&name=' + doc;
+        jQuery.ajax(call, {
+            complete: function(data, status, xhr) {
+            	$('#contents')[0].innerHTML = '<h3>' + title + '</h3>' + nl2br(data.responseText) + '';
+            }
+        });
+    }
+
+    var encode = function(text, dflt) {
+    	if (text === undefined) {
+    		return dflt !== undefined ? dflt : '-';
+    	}
+
+    	return text
+            .replace(new RegExp('<', 'g'), '&lt;')
+            .replace(new RegExp('>', 'g'), '&gt;');
+    }
+
+    var nl2br = function(text) {
+        return text
+            .replace(new RegExp('\\\\n', 'g'), '<br>');
+    }
+
+    var display = function(url, contentsId, title, data, pre) {
+
+    	$('.quickstart').slideUp();
+
+        var contents = '';
+        if (title) {
+            contents = '<h3>' + title + '</h3>';
+        }
+
+        if (pre === true) {
+            contents += '<pre>';
+        }
+
+        switch(url) {
+            case '/doc/toc':
+                eval("var results = " + data);
+                contents += '<ul>';
+                for (var name in results) {
+                    var record = results[name];
+                    if (record instanceof Object) {
+                        contents += '<li>' + name + '<ul>';
+                    	for (var subName in record) {
+                    		contents += "<li><a href='javascript:showDoc(\"" + subName + "\", \"" + record[subName] + "\")'>" + subName + "</a></li>";
+                    	}
+                        contents += '</ul></li>';
+                    } else {
+                        contents += "<li><a href='javascript:showDoc(\"" + name + "\", \"" + record + "\")'>" + name + "</a></li>";
+                    }
+                };
+                contents += '</ul>';
+                break;
+            case '/object/list':
+                eval("var objects = " + data);
+                contents += '<ul>';
+                for (var name in objects) {
+                    contents += "<li><span class='expand-toggle' onclick='expandToggle(this, \"object-ops-" + name + "\")'>+</span><a class='bold' href='javascript:objectInfo(\"" + name + "\");'>" + name + "</a></li>";
+                    if (objects[name]['operations'] !== undefined) {
+                    	contents += '<ul class="collapsed" id="object-ops-' + name + '">';
+                    	for (var i in objects[name]['operations']) {
+                    		var label = '(' + objects[name]['operations'][i]['module'] + ') ' + objects[name]['operations'][i]['label'];
+                    		operations[label] = objects[name]['operations'][i];
+                    		contents += '<li><a href="javascript:run(\'' + label + '\', \'Json\', true)">' + label + "</a><div>" + encode(objects[name]['operations'][i]['description'], 'No description') + "</div></li>";
+                    	}
+                    	contents += '</ul>';
+                    }
+                };
+                contents += '</ul>';
+
+                break;
+            case '/module/list':
+                eval("modules = " + data);
+                contents += '<ul>';
+                for (var name in modules) {
+                    var record = modules[name];
+                    contents += "<li><span class='expand-toggle' onclick='expandToggle(this, \"module-ops-" + name + "\")'>+</span><a class='bold' href='javascript:moduleInfo(\"" + name + "\");'>" + record.name + "</a></li>";
+                    if (modules[name]['operations'] !== undefined) {
+                        contents += '<ul class="collapsed" id="module-ops-' + name + '">';
+                        for (var i in modules[name]['operations']) {
+                            var label = '(' + modules[name]['operations'][i]['module'] + ') ' + modules[name]['operations'][i]['label'];
+                            operations[label] = modules[name]['operations'][i];
+                            contents += '<li><a href="javascript:run(\'' + label + '\', \'Json\', true)">' + label + "</a><div>" + encode(modules[name]['operations'][i]['description'], 'No description') + "</div></li>";
+                        }
+                        contents += '</ul>';
+                    }
+                };
+                contents += '</ul>';
+                break;
+            case '/operation/list':
+                eval("operations = " + data);
+                contents += '<ul>';
+                for (var label in operations) {
+                    var record = operations[label];
+                    contents += "<li><a href='javascript:run(\"" + label + "\", \'Json\', true)'>" + label + "</a><div>" + encode(record.description, 'No description') + "</div></li>";
+                };
+                contents += '</ul>';
+                break;
+            default:
+                contents += data;
+                break;
+        }
+
+        if (pre === true) {
+            contents += '</pre>';
+        }
+
+       	$(contentsId)[0].innerHTML = contents;
+        $(contentsId).removeClass('single');
+    }
+
+    expandToggle = function(toggle, sectionId) {
+    	if ($(toggle).hasClass('expanded')) {
+            $("#" + sectionId).addClass('collapsed');
+            $(toggle).removeClass('expanded');
+            $(toggle)[0].innerHTML = '+';
+
+    	} else {
+
+            $("#" + sectionId).removeClass('collapsed');
+            $(toggle).addClass('expanded');
+            $(toggle)[0].innerHTML = '-';
+    	}
+    }
+
+  </script>
+</body>
+</html>

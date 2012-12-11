@@ -1,0 +1,206 @@
+# Module YAML Description
+#
+# This file provides information that will be used to better describe the module
+# Some of the contents are static and shall be specified by the developer directly in this module,
+# some of the are generated directly using module inspection
+#
+
+name: Core Module
+version: 1.0.0
+date: 23 May 2012
+
+authors:
+    Axel Tessier: core developer 
+    NBS System: editor
+
+
+provides:
+  - log
+  - security
+  - cache
+
+objects:
+  module:
+  object:
+  user:
+    description: "User of the application"
+    properties:
+        name: "User name"
+        username: "Account name"
+        password: "Account password"
+        email: "Email address"
+        active: "Status"
+  operation:
+  provider:
+
+formatters:
+    - ExceptionFormatter
+    - WebServiceResponseFormatter
+    - ServiceResponseFormatter
+    - ModuleFormatter
+    - OperationFormatter
+
+operations:
+    help:
+        description: "Print application global help"
+    version:
+        description: "Get application version"
+    info:
+        description: "Provide application information"
+    phpinfo:
+        description: "Provide PHP information"
+    provider.list:
+        object: provider
+        operation: list        
+    module.list:
+        object: module
+        operation: list
+        description: "List all modules installed on the application"
+    module.info:
+        object: module
+        operation: info
+        description: "Get information on a module installed on the application"
+        usage: "name=<module>"
+        args:
+            name:
+                description: "Name of the module to gather information"
+                format: string
+                validation: required
+    object.list:
+        object: object
+        operation: list
+        description: "List all objects available on the application"
+    object.info:
+        object: object
+        operation: info
+        description: "Get information on an object available on the application"
+        usage: "name=<object name>"
+        args:
+            name:
+                description: "Name of the object to gather information"
+                format: string
+                validation: required
+    object.optionList:
+        object: object
+        operation: optionList
+        description: "Get option list for this object using properties as key/value"
+        args:
+            object:
+                description: "Name of the object to gather information"
+                format: string
+                validation: required
+            key:
+                description: "Property used as key for the option list"
+                format: string
+                validation: required
+            value:
+                description: "Property used as value for the option list"
+                format: string
+                validation: required
+    operation.list:
+        object: operation
+        operation: list
+        description: "List all operations available on the application"
+    operation.info:
+        object: operation
+        operation: info
+        description: "Get information of an operation"
+        usage: 'object=<name> operation=<name> module=<module>'
+        args:
+            object:
+                description: "Name of the object or module to call the operation against"
+                format: string
+                validation: required
+            operation:
+                description: "Name of the operation"
+                format: string
+                validation: required
+    # User Management
+    user.list:
+        description: "Get list of users"
+        object: user
+        operation: list
+    user.create:
+        description: "Add new user"
+        object: user
+        operation: create
+        usage: 'object=<name> operation=<name> module=<module>'
+        args:
+            name:
+                description: "User name"
+                format: string
+                validation: required
+            username:
+                description: "Account name"
+                format: string
+                validation: required unique
+            password:
+                description: "Account password"
+                format: string
+                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."                
+                validation: 
+            email:
+                description: "Email address"
+                format: string
+                validation: required email
+            active:
+                description: "Status"
+                format: options
+                options:
+                    true: "Active"
+                    false: "Inactive"
+    user.update:
+        description: "Update a user"
+        object: user
+        operation: update
+        usage: 'user=<username> [username=<username> name=<name> password=<password> email=<email>]'
+        args:
+            user:
+                description: "Username of the account to update"
+                format: string
+                validation: required
+            username:
+                description: "New username to be set"
+                format: string
+            name:
+                description: "New account name to be set"
+                format: string
+            password:
+                description: "New account password to be set"
+                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."
+                format: string
+            email:
+                description: "New email address to be set"
+                format: string
+                validation: email
+    user.deactivate:
+        description: "Disable a user - user will not be able to authenticate till enabled back"
+        object: user
+        operation: deactivate
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
+    user.activate:
+        description: "Enable a user - user will be able to authenticate"
+        object: user
+        operation: activate
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
+    user.delete:
+        description: "Delete a user"
+        object: user
+        operation: delete
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
+

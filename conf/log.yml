@@ -1,0 +1,16 @@
+# Where to store logs
+facilities:
+   system: syslog
+   error: file var/logs/daw-error.log
+   debug: file var/logs/daw-debug.log
+   default: file var/logs/daw.log
+
+
+# Levels used per namespace / class
+levels:
+    - Daw WARN error
+    - Daw DEBUG debug
+
+# Default settings
+defaultLevel: INFO
+defaultFacility: default

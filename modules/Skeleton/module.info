@@ -1,0 +1,32 @@
+# Module Description
+# If you wish to create a new module, copy this directory, rename it and start coding
+#
+# @version $Id$
+# @author Axel Tessier <axel.tessier@extendev.net>
+
+name: <Name of your Module>
+version: 1.0.0
+date: <public date>
+
+authors:
+    # Specify all the authors using format <name>: role (<email>)
+    Axel Tessier: Creator
+
+providers:
+    # If your module has implemented providers, you can pass them to this
+
+objects:
+  <new-object-name>:
+    description: "Example of object"
+    properties:
+        myParam: "Object first param"
+        mySecondParam: "Object second param"
+
+operations:
+    helloWorld:
+        description: "Example of a simple module operation with no arg"
+    skeletonFunc:
+        object: skeleton
+        operation: func
+        description: "Example of a module operation running against one object"
+

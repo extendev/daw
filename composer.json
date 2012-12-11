@@ -1,0 +1,27 @@
+{
+    "name": "extendev/daw",
+    "description": "Data access and management framework.",
+    "type": "library",
+    "keywords": [],
+    "homepage": "http://github.com/extendev/daw",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Axel Tessier",
+            "email": "axel.tessier@extendev.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.2",
+        "symfony/yaml": "v2.1.2"
+    },
+    "require-dev": {
+        "phpmd/phpmd": "1.4.0",
+        "pdepend/pdepend": "1.1.0",
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": { "Daw": "" }
+    },
+    "target-dir": "daw"
+}

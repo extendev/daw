@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Daw - Unified Data Management and Access framework</title>
+    <files>
+      <directory>core</directory>
+    </files>
+    <parser>
+        <target>docs/reference</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+            <extension>inc</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>docs/reference</target>
+    </transformer>
+    <transformations>
+        <template name="responsive" />
+    </transformations>
+</phpdoc>

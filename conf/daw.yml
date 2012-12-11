@@ -1,0 +1,13 @@
+version: 0.1
+
+defaultObject: core
+defaultOperation: help
+
+providers:
+  log: core
+  security: core
+  cache: core
+
+modules:
+  core:
+  Daw:

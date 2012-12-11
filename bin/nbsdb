@@ -1,0 +1,22 @@
+#!/bin/bash
+# Daw command line service client
+# Usage: Daw object operation args
+#
+# @author Axel Tessier <axel.tessier@extendev.net>
+# @version $Id: Daw 105 2003-08-22 01:20:24Z  $
+
+##
+# Return absolute path of current running script
+#
+function projectPath {
+        path=$(eval dirname $0)
+        dir=$(d=`dirname $path`; echo $path | grep '^/' || echo `pwd`/$path | sed -e s/\\/\\.\\//\\//g | sed -e s/\\/\\.$//g)
+        echo $dir
+        return 0
+}
+
+# Source project settings
+PROJECT_BASE= `projectPath`/../etc/project.ini
+
+# Launch CLI client
+php -c ${PROJECT_BASE}/etc/ ${PROJECT_BASE}/service/cli/index.php "$@"

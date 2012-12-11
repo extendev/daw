@@ -1,0 +1,311 @@
+h3.title {
+	border: 0px !important;
+	margin: 0px;
+}
+
+.content .sidebar {
+	padding: 0px 0px;
+	width: 300px;
+}
+
+.content #sidebar {
+	margin: 10px 0px;
+	border-right: 2px solid #999;
+	min-height: 500px;
+	display: none;
+	
+	float: left;
+	width: 300px;
+}
+
+.content .center {
+	padding: 10px;
+	min-height: 500px;
+	padding-left: 310px;
+}
+
+.content .center.single {
+    padding: 10px;
+    min-height: 500px;
+}
+
+
+/* Jumbotrons
+-------------------------------------------------- */
+.jumbotron {
+  min-width: 940px;
+  padding-top: 40px;
+}
+.jumbotron .inner {
+  background: transparent url(../img/grid-18px.png) top center;
+  padding: 15px 0;
+  -webkit-box-shadow: inset 0 10px 30px rgba(0,0,0,.3);
+     -moz-box-shadow: inset 0 10px 30px rgba(0,0,0,.3);
+/*          box-shadow: inset 0 10px 30px rgba(0,0,0,.3);
+*/}
+.jumbotron h1,
+.jumbotron p {
+  margin-bottom: 9px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
+.jumbotron h1 {
+  font-size: 42px;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+.jumbotron p {
+  font-weight: 300;
+}
+.jumbotron .lead {
+  font-size: 20px;
+  line-height: 27px;
+}
+.jumbotron p a {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Specific jumbotrons
+------------------------- */
+/* main docs page */
+.masthead {
+  background-color: #049cd9;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#004D9F), to(#049cd9));
+  background-image: -webkit-linear-gradient(#004D9F, #049cd9);
+  background-image: -moz-linear-gradient(#004D9F, #049cd9);
+  background-image: -o-linear-gradient(top, #004D9F, #049cd9);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#004D9F), to(#049cd9));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#004D9F', endColorstr='#049cd9', GradientType=0); /* IE8 and down */
+}
+/* supporting docs pages */
+.subhead {
+  background-color: #767d80;
+  background-repeat: no-repeat;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#565d60), to(#767d80));
+  background-image: -webkit-linear-gradient(#565d60, #767d80);
+  background-image: -moz-linear-gradient(#565d60, #767d80);
+  background-image: -o-linear-gradient(top, #565d60, #767d80);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#565d60), to(#767d80));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#565d60', endColorstr='#767d80', GradientType=0); /* IE8 and down */
+}
+.subhead .inner {
+  padding: 36px 0 27px;
+}
+.subhead h1,
+.subhead p {
+  text-align: left;
+}
+.subhead h1 {
+  font-size: 40px;
+}
+.subhead p a {
+  font-weight: normal;
+}
+
+
+
+
+/* Quickstart section for getting le code
+-------------------------------------------------- */
+.quickstart {
+  background-color: #f5f5f5;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#f9f9f9), to(#f5f5f5));
+  background-image: -moz-linear-gradient(#f9f9f9, #f5f5f5);
+  background-image: -ms-linear-gradient(#f9f9f9, #f5f5f5);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9f9f9), color-stop(100%, #f5f5f5));
+  background-image: -webkit-linear-gradient(#f9f9f9, #f5f5f5);
+  background-image: -o-linear-gradient(#f9f9f9, #f5f5f5);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#f5f5f5', GradientType=0)";
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#f5f5f5', GradientType=0);
+  background-image: linear-gradient(#f9f9f9, #f5f5f5);
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #eee;
+}
+.quickstart .container {
+  margin-bottom: 0;
+}
+.quickstart .row {
+  margin: 0 -20px;
+  -webkit-box-shadow: 1px 0 0 #f9f9f9;
+     -moz-box-shadow: 1px 0 0 #f9f9f9;
+          box-shadow: 1px 0 0 #f9f9f9;
+}
+.quickstart [class*="span"] {
+  width: 285px;
+  height: 117px;
+  margin-left: 0;
+  padding: 17px 20px 26px;
+  border-left: 1px solid #eee;
+  -webkit-box-shadow: inset 1px 0 0 #f9f9f9;
+     -moz-box-shadow: inset 1px 0 0 #f9f9f9;
+          box-shadow: inset 1px 0 0 #f9f9f9;
+}
+.quickstart [class*="span"]:last-child {
+  border-right: 1px solid #eee;
+  width: 286px;
+}
+.quickstart h6,
+.quickstart p {
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 9px;
+  color: #333;
+}
+.quickstart .current-version,
+.quickstart .current-version a {
+  color: #999;
+}
+.quickstart h6 {
+  color: #999;
+}
+.quickstart textarea {
+  display: block;
+  width: 275px;
+  height: auto;
+  margin: 0 0 9px;
+  line-height: 21px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+
+      /* Styles you shouldn't keep as they are for displaying this base example only */
+      .content .span10,
+      .content .span4 {
+        min-height: 500px;
+      }
+      /* Give a quick and non-cross-browser friendly divider */
+      .content .span4 {
+        margin-left: 0;
+        padding-left: 19px;
+        border-left: 1px solid #eee;
+      }
+      
+      
+h3 {
+    margin-bottom: 10px;
+    border-bottom: 3px solid #CCC;	
+}
+
+pre {
+    background: #F4F4F4;  
+}
+
+div.args {
+    border: 1px solid #999;
+    background: F4F4F4;
+    margin: 10px 0px;	
+    padding: 10px 0px;
+}
+
+div.args h4 {
+	display: none;
+}
+
+div.args ul {
+	list-style-type: none;
+}
+
+div.args ul input {
+    height: 24px;
+}
+
+div.args ul li {
+	margin-bottom: 2px;
+}
+
+div.args ul li .label {
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+}
+
+div.args ul li .description {
+    font-style: italic;
+    color: #AAA;
+    margin-left: 10px;
+}
+
+div.args ul li a .description {
+	border-bottom: 1px dotted #AAA;
+}
+
+a.hint {
+    display: inline-block;
+    vertical-align: top;    
+}
+
+div.args ul li a:hover .description {
+    border-bottom: 0px;
+    text-decoration: none;
+}
+
+div.args ul li a:hover {
+    border-bottom: 0px;
+    text-decoration: none;
+}
+
+div.args div.btn {
+    margin-right: 10px;
+}
+
+.right {
+	float: right;
+}
+
+blockquote {
+	color: #999 !important;
+	font-size: 14px;
+}
+
+blockquote small {
+    margin-top: 5px;
+}
+
+ul {
+	list-style-type: none;
+	margin-left: 10px;
+}
+
+h3 .format-selection {
+	float: right;
+	margin-top: 10px;
+}
+
+h3 .format-selection .selection {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+h3 .format-selection .selected {
+    cursor: normal !important;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+}
+
+.collapsed {
+	display: none;
+}
+
+.expand-toggle {
+	cursor: pointer;
+	margin-right: 5px;
+	line-height: 20px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.label.error{background-color:#aa0000;}
+
+.chzn-container-multi .chzn-choices .search-field input {
+	height: auto !important;
+}
