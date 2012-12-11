@@ -80,7 +80,7 @@ abstract class Operation {
 		foreach ($this->info['args'] as $argName => $argInfo) {
 
 			if ($this->isArgSet($argName) && isset($argInfo['format'])) {
-				$this->validateFormat($argName, $this->getArg($argName, false), $argInfo['format'], isset($argInfo['options']) ? $argInfo['options'] : null);
+				$this->validateFormat($argName, $this->getArg($argName, false), $argInfo['format'], isset($argInfo['options']) ? $argInfo['options'] : null, isset($argInfo['format-msg']) ? $argInfo['format-msg'] : null);
 			}
 
 			// Check if validation has been specified for this argument
@@ -172,7 +172,7 @@ abstract class Operation {
 	* @param string $arg
 	* @param string $format
 	*/
-	public function validateFormat($argName, $arg, $format, $formatOptions = array()) {
+	public function validateFormat($argName, $arg, $format, $formatOptions = array(), $formatHint = null) {
 
 		// Check format
 		if (preg_match_all("/^([^(]*)(?:\((.*)\))?+/", $format, $matches) === 0) {
@@ -185,45 +185,45 @@ abstract class Operation {
 		switch ($baseFormat) {
 			case 'boolean':
 				if (filter_var($arg, FILTER_VALIDATE_BOOLEAN) === false && !in_array($arg, array('0', '1'))) {
-					throw new OperationArgumentException($this, $argName, 'Invalid format, possible options: true, false, 1, 0.', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid format, possible options: true, false, 1, 0.', $arg);
 				}
 				break;
 
 			case 'date':
 				$dateFormat = count($formatArgs) > 0 ? $formatArgs[0] : 'Ymd';
 				if (\DateTime::createFromFormat($dateFormat, $arg) === false) {
-					throw new OperationArgumentException($this, $argName, 'Date format is invalid, expected format is: ' . $dateFormat, $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : ('Date format is invalid, expected format is: ' . $dateFormat), $arg);
 				}
 				break;
 
 			case 'ip':
 				if (filter_var($arg, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false
 					&& filter_var($arg, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === false) {
-					throw new OperationArgumentException($this, $argName, 'Invalid IPv4 address, format expected is xxx.xxx.xxx.xxx.', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid IPv4 address, format expected is xxx.xxx.xxx.xxx.', $arg);
 				}
 				break;
 
 			case 'ipv4':
 				if (filter_var($arg, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false) {
-					throw new OperationArgumentException($this, $argName, 'Invalid IPv4 address, format expected is xxx.xxx.xxx.xxx.', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid IPv4 address, format expected is xxx.xxx.xxx.xxx.', $arg);
 				}
 				break;
 
 			case 'ipv6':
 				if (filter_var($arg, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === false) {
-					throw new OperationArgumentException($this, $argName, 'Invalid IPv6 address.', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid IPv6 address.', $arg);
 				}
 				break;
 
 			case 'url':
 				if (filter_var($arg, FILTER_VALIDATE_URL) === false) {
-					throw new OperationArgumentException($this, $argName, 'Invalid URL', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid URL', $arg);
 				}
 				break;
 
 			case 'fqdn':
 				if (filter_var($arg, FILTER_VALIDATE_FQDN) === false) {
-					throw new OperationArgumentException($this, $argName, 'Invalid FQDN', $arg);
+					throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : 'Invalid FQDN', $arg);
 				}
 				break;
 
@@ -239,7 +239,7 @@ abstract class Operation {
 					if (in_array($value[0], array('-', '+'))) {
 						$value = substr($value, 1);
 					}
-					$this->validateFormat($argName . '[' . $idx . ']', $value, $tokenFormat, $formatOptions);
+					$this->validateFormat($argName . '[' . $idx . ']', $value, $tokenFormat, $formatOptions, $formatHint);
 				}
 				break;
 
@@ -250,7 +250,7 @@ abstract class Operation {
 				// Check options
 				if (isset($formatOptions) && is_array($formatOptions) && count($formatOptions)) {
 					if (!in_array($arg, $formatOptions)) {
-						throw new OperationArgumentException($this, $argName, 'Value "' . $arg . '" must be one of the following options: ' . implode(', ', $formatOptions));
+						throw new OperationArgumentException($this, $argName, $formatHint !== null ? $formatHint : ('Value "' . $arg . '" must be one of the following options: ' . implode(', ', $formatOptions)));
 					}
 				}
 				break;
