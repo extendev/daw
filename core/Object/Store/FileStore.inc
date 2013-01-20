@@ -65,14 +65,6 @@ abstract class FileStore extends ObjectStore {
 	}
 
 	/**
-	 * Clear
-	 */
-	public function clear() {
-		file_put_contents($this->filepath, '');
-		$this->store = array();
-	}
-
-	/**
 	 * Return an ID
 	 */
 	public function id() {
@@ -266,6 +258,16 @@ abstract class FileStore extends ObjectStore {
 	public function delete($object) {
 		$index = $this->indexOf($object);
 		unset($this->store[$index]);
+		if ($this->getAutoCommit()) {
+			$this->commit();
+		}
+	}
+
+	/**
+	 * Delete all objects from file store
+	 */
+	public function clear() {
+		$this->store = array();
 		if ($this->getAutoCommit()) {
 			$this->commit();
 		}

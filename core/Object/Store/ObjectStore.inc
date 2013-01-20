@@ -98,6 +98,10 @@ abstract class ObjectStore {
 	 */
 	public abstract function delete($object);
 
+	/**
+	 * Delete all objects
+	 */
+	public abstract function clear();
 
 	/**
 	 * Set auto commit mode
