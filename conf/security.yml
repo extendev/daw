@@ -1,0 +1,6 @@
+authentication:
+  enable: false     # true | false
+  blacklist:
+
+access:
+  default: allow    # allow|deny
