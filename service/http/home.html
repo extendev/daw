@@ -246,7 +246,10 @@
 	    			value = elmt.checked ?  1 : 0;
 	    		}
 
-	    	    call += elmt.name + '=' + encodeURIComponent(value) + '&';
+                if (value.length > 0) {
+                    call += elmt.name + '=' + encodeURIComponent(value) + '&';
+                }
+
 	    	    args[elmt.name] = value;
 	    	}
     	}
@@ -343,7 +346,7 @@
                 jQuery.ajax(argInfo['options'], {
                     complete: function(data, status, xhr) {
                         eval("var options = " + data.responseText);
-                        //contents = '<option value="">Select an option</option>';
+                        contents = '';
                         for (var key in options) {
                             var value = options[key];
                             var selected = false;
@@ -352,7 +355,7 @@
                                     if (args[argName].length !== 0) {
                                         eval("var selectedOptions = " + args[argName]);
                                         for (var selIdx = 0; selIdx < selectedOptions.length; selIdx++) {
-                                            if (selectedOptions[selIdx] === key) {
+                                            if (selectedOptions[selIdx] === value) {
                                                 selected = true;
                                                 break;
                                             }
@@ -364,7 +367,7 @@
                             } else  if (argInfo['default'] !== undefined) {
                                 selected = argInfo['default'][key] !== undefined || argInfo['default'] == key;
                             }
-                            contents += '<option value="' + key + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
+                            contents += '<option value="' + value + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
                         }
 
                         $('.arg[name=' + argName + ']').append(contents);
@@ -401,7 +404,7 @@
                             } else  if (argInfo['default'] !== undefined) {
                                 selected = argInfo['default'][key] !== undefined || argInfo['default'] == key;
                             }
-                            contents += '<option value="' + key + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
+                            contents += '<option value="' + value + '" ' + (selected ? 'selected' : '') + '>' + value + '</option>';
                         }
 
                         $('.arg[name=' + argName + ']').append(contents);
