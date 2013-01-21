@@ -11,9 +11,9 @@
 
 namespace Daw\Core\Service;
 
-use Daw\Core\Service\Service
-use Daw\Core\Service\Api\ApiServiceRequest
-use Daw\Core\Service\Api\ApiServiceResponse
+use \Daw\Core\Service\Service
+use \Daw\Core\Service\Api\ApiServiceRequest
+use \Daw\Core\Service\Api\ApiServiceResponse
 
 class ApiService extends Service {
 

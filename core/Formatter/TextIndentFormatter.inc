@@ -28,7 +28,7 @@ class TextIndentFormatter extends \Daw\Core\Formatter\Formatter {
      * This formatter accepts any object provided that requested format is TextIndent
      *
      * @param object $object object to render
-     * @param DawCoreFormatter\Format $format format to be used for rendering
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
      * @return boolean
      */
     public function isFormatterFor($object, $format = null) {
@@ -42,7 +42,7 @@ class TextIndentFormatter extends \Daw\Core\Formatter\Formatter {
      * in case the formatter supports multiple formats
      *
      * @param object $object object to render
-     * @param DawCoreFormatter\Format $format format to be used for rendering
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
      * @return
      */
     public function render($object, $format) {

@@ -38,7 +38,7 @@ class FormatterContext {
 	 *
 	 * @param string $key key
 	 * @param object $value data
-	 * @return DawCoreFormatter\FomatterContext the formatter context
+	 * @return Daw\Core\Formatter\FomatterContext the formatter context
 	 */
 	public function __set($key, $value) {
 		$this->data[$key] = $value;

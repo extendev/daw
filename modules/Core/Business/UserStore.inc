@@ -37,9 +37,9 @@ namespace Daw\Modules\Core\Business;
  * @version $Id$
  */
 
-use Daw\Core\Core;
-use Daw\Core\Object\Store\FileStore;
-use Daw\Modules\Core\Objects\User;
+use \Daw\Core\Core;
+use \Daw\Core\Object\Store\FileStore;
+use \Daw\Modules\Core\Objects\User;
 
 /**
  * Base class for object store

@@ -2,8 +2,8 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Modules\Core\Objects\User;
-use Daw\Core\Exception\OperationArgumentException;
+use \Daw\Modules\Core\Objects\User;
+use \Daw\Core\Exception\OperationArgumentException;
 
 /**
  * Operation: User Create
@@ -30,6 +30,6 @@ class UserCreate extends \Daw\Core\Module\Operation {
 		$user->active = $args['active'] === 'true';
 		$store->create($user);
 
-		return $user;
+		return $user->info();
 	}
 }

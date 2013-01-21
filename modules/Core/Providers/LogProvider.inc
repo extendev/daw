@@ -23,7 +23,7 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
 	 *
 	 * @return array
 	 */
-	protected function isLogEnabled($callerClass, $level = null) {
+	protected function getLogFacilities($callerClass, $level = null) {
 		$config = $this->core->config('log');
 		if (!$config) {
 			return false;
@@ -66,7 +66,7 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
 
 	public function log($message, $level = \Daw\Core\Provider\Log\Level::INFO) {
 		$callerClass = $this->getCallerClass();
-		$facilities = $this->isLogEnabled($callerClass, $level);
+		$facilities = $this->getLogFacilities($callerClass, $level);
 		if ($facilities === false) {
 			return;
 		}
@@ -77,14 +77,29 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
 		foreach ($facilities as $facilityName) {
 			$facility = $this->getFacility($facilityName);
 			switch ($facility[0]) {
+
 				case 'syslog':
 					syslog(LOG_INFO, $message);
 					break;
+
 				case 'errorlog':
-					error_log($message . "\n", isset($facility[1]) ? $facility[1] : null, isset($facility[2]) ? $facility[2] : null);
+					$messageType = isset($facility[1]) ? $facility[1] : null;
+					$destination = isset($facility[2]) ? $facility[2] : null;
+					if ($messageType === 3 && !empty($destination) && $destination[0] !== '/') {
+						// We need to make the log path an absolute file
+						$destination = $this->core->path($destination);
+					}
+
+					error_log($message . "\n", $messageType, $destination);
 					break;
+
 				case 'file':
-					error_log($message . "\n", 3, $facility[1]);
+					$destination = isset($facility[1]) ? $facility[1] : null;
+					if (!empty($destination) && $destination[0] !== '/') {
+						// We need to make the log path an absolute file
+						$destination = $this->core->path($destination);
+					}
+					error_log($message . "\n", 3, $destination);
 					break;
 			}
 		}

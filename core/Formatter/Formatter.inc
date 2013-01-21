@@ -58,7 +58,7 @@ abstract class Formatter {
 	 * Return true if formatter supports given object and possibly given format
 	 *
 	 * @param object $object object to render
-	 * @param DawCoreFormatter\Format $format format to be used for rendering
+	 * @param Daw\Core\Formatter\Format $format format to be used for rendering
 	 * @return boolean
 	 */
 	public abstract function isFormatterFor($object, $format = null);
@@ -70,7 +70,7 @@ abstract class Formatter {
 	 * in case the formatter supports multiple formats
 	 *
 	 * @param object $object object to render
-	 * @param DawCoreFormatter\Format $format format to be used for rendering
+	 * @param Daw\Core\Formatter\Format $format format to be used for rendering
 	 * @return
 	 */
 	public abstract function render($object, $format);

@@ -11,7 +11,7 @@
 
 namespace Daw\Modules\Core\Formatters;
 
-use Daw\Core\Service\ServiceResponse;
+use \Daw\Core\Service\ServiceResponse;
 
 class ServiceResponseFormatter extends \Daw\Core\Formatter\Formatter {
 

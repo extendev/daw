@@ -2,8 +2,8 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Core\Exception\OperationArgumentException;
-use Daw\Core\Exception\Exception;
+use \Daw\Core\Exception\OperationArgumentException;
+use \Daw\Core\Exception\Exception;
 
 class ObjectInfo extends \Daw\Core\Module\Operation {
 

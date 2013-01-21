@@ -11,7 +11,7 @@
 
 namespace Daw\Modules\Core;
 
-use Daw\Modules\Core\Business\UserStore;
+use \Daw\Modules\Core\Business\UserStore;
 
 /**
  * Daw Module: Core Application Module

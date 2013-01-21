@@ -12,8 +12,8 @@
 namespace Daw\Core\Object\Store;
 
 
-use Daw\Core\Core;
-use Daw\Core\Object\Store\ObjectStore;
+use \Daw\Core\Core;
+use \Daw\Core\Object\Store\ObjectStore;
 
 /**
  * Application Object Store - File
@@ -34,7 +34,7 @@ abstract class FileStore extends ObjectStore {
 	 * Constructor
 	 */
 	protected function __construct($file, $class) {
-		$this->filepath = Core::instance()->path($file);
+		$this->filepath = Core::instance()->path($file, Core::PATH_FILES);
 		$this->class = $class;
 		parent::__construct();
 	}

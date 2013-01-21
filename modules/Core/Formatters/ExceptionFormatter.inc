@@ -11,7 +11,7 @@
 
 namespace Daw\Modules\Core\Formatters;
 
-use Daw\Core\Exception\Exception;
+use \Daw\Core\Exception\Exception;
 
 /**
  * Daw - JSON Default Formatter

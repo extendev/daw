@@ -7,10 +7,12 @@ facilities:
 
 
 # Levels used per namespace / class
+# Each line will be evaluated and may be triggered per log
 levels:
     - Daw WARN error
     - Daw DEBUG debug
 
 # Default settings
+# If none of above levels matched, default log settings are applied
 defaultLevel: INFO
 defaultFacility: default

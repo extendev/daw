@@ -2,7 +2,7 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Modules\Core\Objects\User;
+use \Daw\Modules\Core\Objects\User;
 
 /**
  * Operation: User List

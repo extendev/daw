@@ -11,11 +11,11 @@
 
 namespace Daw\Core;
 
-use Daw\Core\Provider\NullProvider;
-use Daw\Core\common\FileUtil;
-use DawCoreFormatter\TextIndentFormatter;
-use DawCoreFormatter\JsonFormatter;
-use DawCoreFormatter\FormatterContext;
+use \Daw\Core\Provider\NullProvider;
+use \Daw\Core\common\FileUtil;
+use \Daw\Core\Formatter\TextIndentFormatter;
+use \Daw\Core\Formatter\JsonFormatter;
+use \Daw\Core\Formatter\FormatterContext;
 
 /**
  * Bootstrap:
@@ -439,7 +439,7 @@ class Core {
 
 	protected function loadFormatters() {
 		$nbFormatters = 0;
-		$this->log->debug("o Load Formatters");
+		$this->log->info("o Load Formatters");
 		foreach ($this->modules as $moduleName => $module) {
 			if ($module->info('formatters') !== false) {
 				if ($module->info('formatters')) {
@@ -476,7 +476,7 @@ class Core {
 		foreach ($this->formatters as $formatter) {
 			if ($formatter['instance'] === null) {
 				//require_once MODULE_PATH . '/' . $formatter['module'] . '/formatters/' . $formatter['name'] . '.inc';
-				$formatterNS = "\\Daw\\Modules\\" . $formatter['module'] . "\\formatters\\" . $formatter['name'];
+				$formatterNS = "\Daw\\Modules\\" . $formatter['module'] . "\\formatters\\" . $formatter['name'];
 				$formatter['instance'] = new $formatterNS($this);
 			}
 
@@ -515,9 +515,9 @@ class Core {
 		// Register some libraries
 		$this->register(new \Symfony\Component\Yaml\Yaml(), 'yaml');
 
-		$cacheProviderClass = "\\Daw\\providers\\CacheProvider";
-		$logProviderClass = "\\Daw\\providers\\LogProvider";
-		$securityProviderClass = "\\Daw\\providers\\SecurityProvider";
+		$cacheProviderClass = "\Daw\\providers\\CacheProvider";
+		$logProviderClass = "\Daw\\providers\\LogProvider";
+		$securityProviderClass = "\Daw\\providers\\SecurityProvider";
 
 		$this->registerProvider('cache', null, new $cacheProviderClass($this));
 		$this->registerProvider('log', null, new $logProviderClass($this));
@@ -698,13 +698,17 @@ class Core {
 
 	// FILESYSTEM
 
+	const PATH_BASE = 'PATH_BASE';
 	const PATH_FILES = 'PATH_FILES';
 
-	public function path($filename, $path = self::PATH_FILES) {
+	public function path($filename, $path = self::PATH_BASE) {
 		switch ($path) {
 			case self::PATH_FILES:
-			default:
 				return FileUtil::concat($this->basePath, '/var/run', $filename);
+				break;
+			case self::PATH_FILES:
+			default:
+				return FileUtil::concat($this->basePath, $filename);
 				break;
 		}
 	}

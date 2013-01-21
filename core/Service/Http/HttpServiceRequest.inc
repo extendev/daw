@@ -11,7 +11,7 @@
 
 namespace Daw\Core\Service\Http;
 
-use Daw\Core\Service\ServiceRequest;
+use \Daw\Core\Service\ServiceRequest;
 
 class HttpServiceRequest extends ServiceRequest {
 

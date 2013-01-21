@@ -2,8 +2,8 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Core\Exception\OperationException;
-use Daw\Core\Exception\OperationArgumentException;
+use \Daw\Core\Exception\OperationException;
+use \Daw\Core\Exception\OperationArgumentException;
 
 /**
  * Operation: User Add

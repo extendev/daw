@@ -11,7 +11,7 @@
 
 namespace Daw\Core\Service;
 
-use Daw\Core\Service\ServiceResponse;
+use \Daw\Core\Service\ServiceResponse;
 
 /**
 * API Service response

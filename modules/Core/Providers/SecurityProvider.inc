@@ -2,7 +2,7 @@
 
 namespace Daw\Modules\Core\Providers;
 
-use Daw\Core\Provider\security\exception\AuthenticationException;
+use \Daw\Core\Provider\security\exception\AuthenticationException;
 
 /**
  * Base security provider
@@ -86,6 +86,11 @@ class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
 		$accessConfig = $config['access'];
 		$defaultAccess = isset($accessConfig['default']) ? $accessConfig['default'] : 'allow';
 		$this->core->log->trace(__NAMESPACE__ . " default access = $defaultAccess.");
+
+		// Check operations access level permissions
+		if (!isset($accessConfig['operations'])) {
+			return true;
+		}
 
 		foreach ($accessConfig['operations'] as $op => $opInfo) {
 

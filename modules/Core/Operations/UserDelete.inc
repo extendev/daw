@@ -8,8 +8,8 @@ namespace Daw\Modules\Core\Operations;
  * @author Q.AT
  * @version $Id$
  */
-use Daw\Core\Exception\OperationException;
-use Daw\Core\Exception\OperationArgumentException;
+use \Daw\Core\Exception\OperationException;
+use \Daw\Core\Exception\OperationArgumentException;
 
 class UserDelete extends \Daw\Core\Module\Operation {
 

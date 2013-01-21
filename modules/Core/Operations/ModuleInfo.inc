@@ -2,7 +2,7 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Core\Exception\Exception;
+use \Daw\Core\Exception\Exception;
 
 class ModuleInfo extends \Daw\Core\Module\Operation {
 

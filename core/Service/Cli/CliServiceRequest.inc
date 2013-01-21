@@ -11,7 +11,7 @@
 
 namespace Daw\Core\Service;
 
-use Daw\Core\Service\ServiceRequest;
+use \Daw\Core\Service\ServiceRequest;
 
 class CliServiceRequest extends ServiceRequest {
 

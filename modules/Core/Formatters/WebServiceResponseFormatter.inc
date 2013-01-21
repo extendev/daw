@@ -11,8 +11,8 @@
 
 namespace Daw\Modules\Core\Formatters;
 
-use Daw\Core\Service\Api\ApiServiceResponse;
-use Daw\Core\Service\Http\HttpServiceResponse;
+use \Daw\Core\Service\Api\ApiServiceResponse;
+use \Daw\Core\Service\Http\HttpServiceResponse;
 
 class WebServiceResponseFormatter extends \Daw\Core\Formatter\Formatter {
 

@@ -11,9 +11,9 @@
 
 namespace Daw\Core\Module;
 
-use Daw\Core\Common\Json;
-use Daw\Core\Exception\OperationArgumentException;
-use Daw\Core\Module\Operation\Argument\UpdateList;
+use \Daw\Core\Common\Json;
+use \Daw\Core\Exception\OperationArgumentException;
+use \Daw\Core\Module\Operation\Argument\UpdateList;
 
 /**
  * Application Module - Operation

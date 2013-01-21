@@ -2,9 +2,9 @@
 
 namespace Daw\Modules\Core\Operations;
 
-use Daw\Modules\Core\Objects\User;
-use Daw\Core\Exception\OperationException;
-use Daw\Core\Exception\OperationArgumentException;
+use \Daw\Modules\Core\Objects\User;
+use \Daw\Core\Exception\OperationException;
+use \Daw\Core\Exception\OperationArgumentException;
 
 /**
  * Operation: User Update

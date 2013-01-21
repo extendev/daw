@@ -9,5 +9,4 @@ providers:
   cache: core
 
 modules:
-  core:
-  Daw:
+  Core:

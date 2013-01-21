@@ -11,9 +11,9 @@
 
 namespace Daw\Core\Service;
 
-use Daw\Core\Service\Service
-use Daw\Core\Service\Http\HttpServiceRequest
-use Daw\Core\Service\Http\HttpServiceResponse
+use \Daw\Core\Service\Service;
+use \Daw\Core\Service\Http\HttpServiceRequest;
+use \Daw\Core\Service\Http\HttpServiceResponse;
 
 class HttpService extends Service {
 

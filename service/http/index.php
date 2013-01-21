@@ -28,7 +28,8 @@
 define('PROJECT_BASEPATH', realpath(getcwd() . '/../../'));
 
 require_once 'service/includes.inc';
-require_once 'core/service/HttpService.inc';
+
+use Daw\Core\Service\HttpService;
 
 if ($_SERVER['REQUEST_URI'] === '/') {
 	print file_get_contents(getcwd() . '/home.html');

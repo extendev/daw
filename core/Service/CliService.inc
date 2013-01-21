@@ -11,9 +11,9 @@
 
 namespace Daw\Core\Service;
 
-use Daw\Core\Service\Service
-use Daw\Core\Service\Cli\CliServiceRequest
-use Daw\Core\Service\Cli\CliServiceResponse
+use \Daw\Core\Service\Service
+use \Daw\Core\Service\Cli\CliServiceRequest
+use \Daw\Core\Service\Cli\CliServiceResponse
 
 /**
 * Command Line Service

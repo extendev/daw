@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace \Daw\Modules\Skeleton;
+namespace Daw\Modules\Skeleton;
 
 /**
  * Skeleton Module base class
