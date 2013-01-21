@@ -136,7 +136,7 @@
           })
         })
 
-        jQuery.ajax('/core/version', {
+        jQuery.ajax('/Core/version', {
             complete: function(data, status, xhr) {
                 $('#version')[0].innerHTML = data.responseText;
             }
@@ -242,12 +242,18 @@
 	                    value += ']' ;
 	    	        }
 	    	        chzenCmpts[elmt.name] = eval(value);
+                    if (value.length > 0) {
+                        call += elmt.name + '=' + encodeURIComponent(value) + '&';
+                    }
+
 	    		} else if (elmt.getAttribute('x:format') === 'boolean') {
 	    			value = elmt.checked ?  1 : 0;
-	    		}
-
-                if (value.length > 0) {
                     call += elmt.name + '=' + encodeURIComponent(value) + '&';
+	    		} else {
+
+                    if (value.length > 0) {
+                        call += elmt.name + '=' + encodeURIComponent(value) + '&';
+                    }
                 }
 
 	    	    args[elmt.name] = value;
