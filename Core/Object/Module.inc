@@ -9,24 +9,32 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Formatter;
-
-use \Daw\Core\Common\Enum;
+namespace Daw\Core\Object;
 
 /**
- * Available formats Enumeration
+ * Application Object - Module
  *
  * @package Daw
- * @subpackage Formatters
+ * @subpackage Object
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
-class Format extends Enum {
+class Module {
 
-    /**
-     * @var string[] enumeration constants
-     */
-    protected final $constants = array(
-        'JSON', 'Yaml'
-    );
+	private $info = array();
+
+	public function __construct($info = array()) {
+		$this->info = $info;
+	}
+
+	/**
+	* Return module information
+	*/
+	public function info($value = null) {
+		if ($value === null) {
+			return $this->info;
+		}
+
+		return $this->info[$value];
+	}
 }

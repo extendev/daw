@@ -17,10 +17,10 @@ define('MODULE_PATH', realpath(PROJECT_BASEPATH . '/modules'));
 define('PROVIDER_PATH', realpath(PROJECT_BASEPATH . '/providers'));
 
 // Core includes
-require_once 'core/Core.inc';
-require_once 'core/business/AutoLoader.inc';
-require_once 'core/exception/Exception.inc';
+require_once PROJECT_BASEPATH . '/Core.inc';
+require_once PROJECT_BASEPATH . '/Business/AutoLoader.inc';
+require_once PROJECT_BASEPATH . '/Exception/Exception.inc';
 
 // Load default providers
-//require_once PROVIDER_PATH . '/includes.inc';
-require_once 'vendor/autoload.php';
+// require_once PROVIDER_PATH . '/includes.inc';
+require_once PROJECT_BASEPATH . '/vendor/autoload.php';

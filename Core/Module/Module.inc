@@ -175,7 +175,7 @@ class Module {
 	}
 
 	public function call($object, $operationName, $args = array()) {
-		$operationNS = 'Daw\\Modules\\' . $this->getName() . '\\operations\\' . ucwords($object) . ucwords($operationName);
+		$operationNS = 'Daw\\Modules\\' . $this->getName() . '\\Operations\\' . ucwords($object) . ucwords($operationName);
 		$operation = new $operationNS($this, $this->operationInfo($object, $operationName));
 
 		return $operation->call($args);
