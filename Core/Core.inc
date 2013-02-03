@@ -624,6 +624,16 @@ class Core {
 		$this->response->contents = $response;
 	}
 
+    /**
+     * Call module operation
+     *
+     * @param string $module
+     * @param string $object
+     * @param string $operation
+     * @param array params
+     * @param boolean system
+     * @return object
+     */
 	protected function callModule($module, $object, $operation, $params = array(), $system = false) {
 
 		// Check that module exists

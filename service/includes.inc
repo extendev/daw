@@ -9,4 +9,4 @@
  * @version $Id: includes.inc 106 2003-08-22 01:24:18Z  $
  */
 
-require_once 'core/includes.inc';
+require_once 'Core/includes.inc';

@@ -10,7 +10,7 @@ version: 1.0.0
 date: 23 May 2012
 
 authors:
-    Axel Tessier: core developer 
+    Axel Tessier: core developer
     NBS System: editor
 
 
@@ -51,7 +51,7 @@ operations:
         description: "Provide PHP information"
     provider.list:
         object: provider
-        operation: list        
+        operation: list
     module.list:
         object: module
         operation: list
@@ -133,16 +133,19 @@ operations:
             username:
                 description: "Account name"
                 format: string
-                validation: required unique
+                validation:
+                    - required
+                    - unique
             password:
                 description: "Account password"
                 format: string
-                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."                
-                validation: 
+                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."
+                validation:
             email:
                 description: "Email address"
                 format: string
-                validation: required email
+                validation:
+                    - required
             active:
                 description: "Status"
                 format: options

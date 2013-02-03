@@ -46,11 +46,11 @@ class CliServiceRequest extends ServiceRequest {
 
 	public function getAuthenticationToken() {
 		$token = array();
-		if (isset($_SERVER['Daw_USERNAME'])) {
-			$token['username'] = $_SERVER['Daw_USERNAME'];
+		if (isset($_SERVER['DAW_USERNAME'])) {
+			$token['username'] = $_SERVER['DAW_USERNAME'];
 		}
-		if (isset($_SERVER['Daw_PASSWORD'])) {
-			$token['password'] = $_SERVER['Daw_PASSWORD'];
+		if (isset($_SERVER['DAW_PASSWORD'])) {
+			$token['password'] = $_SERVER['DAW_PASSWORD'];
 		}
 
 		return $token;

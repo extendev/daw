@@ -19,13 +19,13 @@ class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
 		return $this->user;
 	}
 
-	/**
-	* Perform the authentication of the user
-	* Return TRUE if authentication is successful
-	*
-	* @param string $user
-	* @param array $params
-	*/
+    /**
+     * Perform the authentication of the user.
+     * Return authenticated used if successful, or NULL otherwise.
+     *
+     * @param array $token
+     * @return object authenticated user
+     */
 	public function authenticate($token) {
 		$user = false;
 
