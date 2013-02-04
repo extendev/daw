@@ -1,0 +1,93 @@
+@startuml
+set namespaceSeparator none
+
+class Object {
+}
+
+class FileStore {
+}
+
+class LogProvider {
+    Log management
+}
+
+class CacheProvider {
+    Cache management
+}
+
+class SecurityProvider {
+    User authentication and access permssions management
+}
+
+class ObjectStore {
+    + void init()
+    + {abstract} object search()
+    + {abstract} boolean exists();
+}
+
+package "DAW - Core Module" <<Rect>> {
+
+    '' Providers
+
+    class Core.Providers.LogProvider {
+        Uses syslog(), error_log() and files for log storage
+        ...
+    }
+
+    Core.Providers.LogProvider -> LogProvider
+
+
+    class Core.Providers.CacheProvider {
+        Caching using plain file defined in cache.yml, file setting
+        ...
+    }
+
+    Core.Providers.CacheProvider -> CacheProvider
+
+
+    class Core.Providers.SecurityProvider {
+        Manages user authentication and access using User objects
+        and ACLs defined in security.yml configuration file
+        ...
+    }
+
+    Core.Providers.SecurityProvider -> SecurityProvider
+
+
+    '' Objects
+
+    class User {
+        Long id
+        String name;
+        String username;
+        String password;
+        String email;
+        Boolean active;
+    }
+
+    User -down|> Object
+
+    class UserStore {
+        Stores users in users.db
+        ..
+        +User map()
+        +String unmap()
+    }
+
+    UserStore -down User: > manages
+    User -left Core.Providers.SecurityProvider: < uses
+
+
+    class Module {
+        Core core
+        --
+        -loadConfig()
+        +store()
+    }
+
+}
+
+ObjectStore *-up FileStore
+FileStore *-up UserStore
+
+@enduml

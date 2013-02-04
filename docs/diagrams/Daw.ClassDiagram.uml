@@ -1,0 +1,207 @@
+@startuml
+
+package "Daw" <<Rect>> {
+
+    class Core <<Singleton>> {
+        Core engine
+        ...
+        # config
+        # service
+        # request
+        # modules
+        # providers
+        # objects
+        # operations
+        # operations
+        --
+        + Core instance()
+        + void register($object, $alias)
+        + array getModules()
+        + Module getModule($name)
+        + object config($section = null)
+        + Service getService()
+        + Request getRequest()
+        + Object getObject($name)
+        + ObjectStore getObjectStore($objectName)
+        + array getOperations($object = null)
+        + Operation getOperation($object, $name)
+        + array getProviders()
+        + Formatter getFormatter($object, $format)
+        + void render($object, $format, $output = false)
+        + void sudo($name, $operation, $params = array())
+        + void call($name, $operation, $params = array(), $system = false)
+        + void start($service = null)
+        + string path($filename, $path = self::PATH_BASE)
+    }
+
+    '' Service Management
+
+    package "Service Management" {
+
+        abstract class Service {
+            + {abstract} ServiceRequest getRequest();
+            + {abstract} ServiceResponse buildResponse();
+        }
+
+        Service *-- class CliService
+        Service *-- class ApiService
+        Service *-- class HttpService
+
+        class ServiceRequest {
+            + {abstract} array getArgs()
+            + {abstract} array getAuthenticationToken()
+        }
+
+        ServiceRequest -- Service
+        CliServiceRequest -- ServiceRequest
+        CliServiceRequest -- CliService
+        ApiServiceRequest -- ServiceRequest
+        ApiServiceRequest -- ApiService
+
+        class ServiceResponse {
+            + void setRequest($request)
+        }
+
+        ServiceResponse -- Service
+        CliServiceResponse -- ServiceResponse
+        CliServiceResponse -- CliService
+        ApiServiceResponse -- ServiceResponse
+        ApiServiceResponse -- ApiService
+
+    }
+
+    '' Providers
+
+    package "Providers" {
+
+        abstract class Provider {
+            + Module getModule()
+            + {abstract} boolean isProviderFor($feature)
+        }
+
+        class LogProvider {
+            Log management
+            ..
+            + {abstract} void log()
+            + void fatal()
+            + void error()
+            + void wanr()
+            + void notice()
+            + void info()
+            + void debug()
+            + void trace()
+        }
+
+        class CacheProvider {
+            Cache management
+            ..
+            + {abstract} boolean contains()
+            + {abstract} object get()
+            + {abstract} add()
+            + {abstract} remove()
+            + {abstract} purge()
+        }
+
+        class SecurityProvider {
+            + {abstract} object authenticate($token);
+            + {abstract} boolean hasAccess($module, $object, $operation);
+        }
+
+        Provider *-- LogProvider
+        Provider *-- CacheProvider
+        Provider *-- SecurityProvider
+
+    }
+
+    '' Module, Object & Operations
+
+    package "Engine" {
+
+        abstract class Object {
+            All objects shall extend this class
+            ...
+            object info($value)
+            {abstract} string primaryKey()
+            void clear()
+        }
+
+        class Exception {
+            + array getData()
+        }
+
+        abstract class ObjectStore {
+            # void init()
+            + {abstract}  search($params = null)
+            + {abstract}  exists($object)
+            + {abstract}  read($id)
+            + {abstract}  create($object)
+            + {abstract}  update($object)
+            + {abstract}  save($object)
+            + {abstract}  delete($object)
+            + {abstract}  clear()
+            + void setAutoCommit($flag = true)
+            + boolean getAutoCommit()
+        }
+
+        class FileStore {
+            Stores objects in file
+            ..
+            + filepath
+            --
+            + int id()
+            + search($params = null)
+            + exists($object)
+            + read($id)
+            + create($object)
+            + update($object)
+            + save($object)
+            + delete($object)
+            + clear()
+            # void init()
+            # int indexOf($object)
+            # void commit()
+        }
+
+        Object -- ObjectStore  : < manages
+        ObjectStore *-- FileStore
+
+        abstract class Operation {
+            All operations shall extend
+            ..
+            #Core core
+            #Module module
+            #array args
+            --
+            + void call($args)
+            # array getArgs()
+            # boolean isArgSet($name)
+            # boolean function isArgSet($name)
+            # void validate($args)
+            # object getArg($name, $strict = true)
+            # void success($message = 'Operation completed successfully', $data = null)
+            # void failure($message = 'Operation failed', $code = null, $data = null)
+        }
+
+        abstract class Module {
+            All modules shall extend this class
+            ..
+            #string name
+            #array config
+            #array info
+            #Core core
+            --
+            + Core core()
+            + string getName()
+            + object info($key)
+            + string getPath($file)
+            + void load()
+            + object config($name = null, $default = false)
+            + array operationList($objectName = null)
+            + void call($object, $operationName, $args = array())
+        }
+    }
+
+
+}
+
+@enduml
