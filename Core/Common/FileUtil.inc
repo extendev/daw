@@ -23,21 +23,21 @@ namespace Daw\Core\Common;
  */
 class FileUtil {
 
-	/**
-	 * Concatenate path
-	 *
-	 * Concatenate as many fragments passed to the method
-	 * using DIRECTORY_SEPARATOR
-	 *
-	 * @return string concatenated path
-	 */
-	public static function concat(/*$path, $path2, ...*/) {
-		$args = func_get_args();
-		$consolidatedString = rtrim(array_shift($args), DIRECTORY_SEPARATOR);
-		foreach ($args as $arg) {
-			$consolidatedString .= DIRECTORY_SEPARATOR . ltrim($arg, DIRECTORY_SEPARATOR);
-		}
+    /**
+     * Concatenate path
+     *
+     * Concatenate as many fragments passed to the method
+     * using DIRECTORY_SEPARATOR
+     *
+     * @return string concatenated path
+     */
+    public static function concat(/*$path, $path2, ...*/) {
+        $args = func_get_args();
+        $consolidatedString = rtrim(array_shift($args), DIRECTORY_SEPARATOR);
+        foreach ($args as $arg) {
+            $consolidatedString .= DIRECTORY_SEPARATOR . ltrim($arg, DIRECTORY_SEPARATOR);
+        }
 
-		return $consolidatedString;
-	}
+        return $consolidatedString;
+    }
 }

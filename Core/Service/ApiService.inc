@@ -11,23 +11,23 @@
 
 namespace Daw\Core\Service;
 
-use \Daw\Core\Service\Service
-use \Daw\Core\Service\Api\ApiServiceRequest
-use \Daw\Core\Service\Api\ApiServiceResponse
+use \Daw\Core\Service\Service;
+use \Daw\Core\Service\Api\ApiServiceRequest;
+use \Daw\Core\Service\Api\ApiServiceResponse;
 
 class ApiService extends Service {
 
-	const RESPONSE_FORMAT =  'Json';
+    const RESPONSE_FORMAT =  'Json';
 
-	public function getRequest() {
-		return new ApiServiceRequest();
-	}
+    public function getRequest() {
+        return new ApiServiceRequest();
+    }
 
-	public function buildResponse() {
-		return new ApiServiceResponse();
-	}
+    public function buildResponse() {
+        return new ApiServiceResponse();
+    }
 
-	public function getResponseFormat() {
-		return self::RESPONSE_FORMAT;
-	}
+    public function getResponseFormat() {
+        return self::RESPONSE_FORMAT;
+    }
 }

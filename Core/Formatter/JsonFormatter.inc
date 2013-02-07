@@ -47,40 +47,40 @@ class JsonFormatter extends \Daw\Core\Formatter\Formatter {
      * @return
      */
     public function render($object, $format) {
-    	$contents = null;
+        $contents = null;
 
-    	if (is_array($object)) {
+        if (is_array($object)) {
 
-    		// Check if array, otherwise use object structure
-    		$is_object = false;
-    		$idx = 0;
-    		$arr = array();
-    		foreach ($object as $label => $item) {
-    			if (!$is_object
-    				&& (!is_numeric($label)
-    					|| $label != $idx)) {
-    				$is_object = true;
-    			}
+            // Check if array, otherwise use object structure
+            $is_object = false;
+            $idx = 0;
+            $arr = array();
+            foreach ($object as $label => $item) {
+                if (!$is_object
+                    && (!is_numeric($label)
+                        || $label != $idx)) {
+                    $is_object = true;
+                }
 
-    			$arr[$label] = $this->core->render($item, $format);
+                $arr[$label] = $this->core->render($item, $format);
 
-    			$idx++;
-    		}
+                $idx++;
+            }
 
-    		if ($is_object && count($arr)) {
-    			$arrStr = array();
-    			foreach ($arr as $label => $value) {
-    				$arrStr[] = "\"$label\": " . $value;
-    			}
-    			$contents = '{' . join(', ', $arrStr) . '}';
-    		} else {
-    			$contents = '[' . join(', ', array_values($arr)) . ']';
-    		}
+            if ($is_object && count($arr)) {
+                $arrStr = array();
+                foreach ($arr as $label => $value) {
+                    $arrStr[] = "\"$label\": " . $value;
+                }
+                $contents = '{' . join(', ', $arrStr) . '}';
+            } else {
+                $contents = '[' . join(', ', array_values($arr)) . ']';
+            }
 
-    	} else {
-    		$contents = json_encode($object);
-    	}
+        } else {
+            $contents = json_encode($object);
+        }
 
-    	return $contents;
+        return $contents;
     }
 }

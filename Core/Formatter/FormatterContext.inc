@@ -28,47 +28,47 @@ namespace Daw\Core\Formatter;
  */
 class FormatterContext {
 
-	/**
-	 * @var array data stored in the context
-	 */
-	protected $data = array();
+    /**
+     * @var array data stored in the context
+     */
+    protected $data = array();
 
-	/**
-	 * Store new information in the context
-	 *
-	 * @param string $key key
-	 * @param object $value data
-	 * @return Daw\Core\Formatter\FomatterContext the formatter context
-	 */
-	public function __set($key, $value) {
-		$this->data[$key] = $value;
+    /**
+     * Store new information in the context
+     *
+     * @param string $key key
+     * @param object $value data
+     * @return Daw\Core\Formatter\FomatterContext the formatter context
+     */
+    public function __set($key, $value) {
+        $this->data[$key] = $value;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get context information by providing its key
-	 *
-	 * If information could not be found, the method returns null
-	 *
-	 * @param string $key key
-	 * @return object
-	 */
-	public function __get($key) {
-		return isset($this->data[$key]) ? $this->data[$key] : null;
-	}
+    /**
+     * Get context information by providing its key
+     *
+     * If information could not be found, the method returns null
+     *
+     * @param string $key key
+     * @return object
+     */
+    public function __get($key) {
+        return isset($this->data[$key]) ? $this->data[$key] : null;
+    }
 
-	/**
-	 * Get context information by providing its key
-	 *
-	 * If information could not be found, the method returns the default
-	 * value specified as argument
-	 *
-	 * @param string $key key
-	 * @param object $default default value
-	 * @return object
-	 */
-	public function get($key, $default = null) {
-		return isset($this->data[$key]) ? $this->data[$key] : $default;
-	}
+    /**
+     * Get context information by providing its key
+     *
+     * If information could not be found, the method returns the default
+     * value specified as argument
+     *
+     * @param string $key key
+     * @param object $default default value
+     * @return object
+     */
+    public function get($key, $default = null) {
+        return isset($this->data[$key]) ? $this->data[$key] : $default;
+    }
 }

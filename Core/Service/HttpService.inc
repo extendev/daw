@@ -17,17 +17,17 @@ use \Daw\Core\Service\Http\HttpServiceResponse;
 
 class HttpService extends Service {
 
-	const RESPONSE_FORMAT =  'Json';
+    const RESPONSE_FORMAT =  'Json';
 
-	public function getRequest() {
-		return new HttpServiceRequest();
-	}
+    public function getRequest() {
+        return new HttpServiceRequest();
+    }
 
-	public function buildResponse() {
-		return new HttpServiceResponse();
-	}
+    public function buildResponse() {
+        return new HttpServiceResponse();
+    }
 
-	public function getResponseFormat() {
-		return self::RESPONSE_FORMAT;
-	}
+    public function getResponseFormat() {
+        return self::RESPONSE_FORMAT;
+    }
 }

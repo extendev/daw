@@ -12,6 +12,6 @@
 namespace Daw\Core\Service;
 
 abstract class Service {
-	public abstract function getRequest();
-	public abstract function buildResponse();
+    public abstract function getRequest();
+    public abstract function buildResponse();
 }

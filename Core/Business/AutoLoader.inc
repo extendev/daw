@@ -27,21 +27,21 @@
  */
 function coreAutoLoad($class) {
 
-	$classTokens = explode('\\', $class);
-	switch (array_shift($classTokens)) {
-		case 'Daw':
-			switch ($classTokens[0]) {
-				case 'Modules':
-					$classNS = join('/', array_slice($classTokens, 1));
-					require_once MODULE_PATH . '/' . $classNS . '.inc';
-					break;
-				default:
-					$classNS = join('/', $classTokens);
-					require_once $classNS . '.inc';
-					break;
-			}
-			break;
-	}
+    $classTokens = explode('\\', $class);
+    switch (array_shift($classTokens)) {
+        case 'Daw':
+            switch ($classTokens[0]) {
+                case 'Modules':
+                    $classNS = join('/', array_slice($classTokens, 1));
+                    require_once MODULE_PATH . '/' . $classNS . '.inc';
+                    break;
+                default:
+                    $classNS = join('/', $classTokens);
+                    require_once $classNS . '.inc';
+                    break;
+            }
+            break;
+    }
 }
 
 // Class autoloader

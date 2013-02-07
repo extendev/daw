@@ -21,29 +21,29 @@ namespace Daw\Core\Object;
  */
 class Operation {
 
-	private $name = null;
-	private $info = array();
+    private $name = null;
+    private $info = array();
 
-	public function __construct($name, $info = array()) {
-		$this->name = $name;
-		$this->info = $info;
-	}
+    public function __construct($name, $info = array()) {
+        $this->name = $name;
+        $this->info = $info;
+    }
 
-	/**
-	 * Return operation name in parent module
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Return operation name in parent module
+     */
+    public function getName() {
+        return $this->name;
+    }
 
-	/**
-	* Return module information
-	*/
-	public function info($value = null) {
-		if ($value === null) {
-			return $this->info;
-		}
+    /**
+    * Return module information
+    */
+    public function info($value = null) {
+        if ($value === null) {
+            return $this->info;
+        }
 
-		return $this->info[$value];
-	}
+        return $this->info[$value];
+    }
 }

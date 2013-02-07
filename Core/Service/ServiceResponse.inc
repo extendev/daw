@@ -12,15 +12,15 @@
 namespace Daw\Core\Service;
 
 class ServiceResponse {
-	protected $request = null;
+    protected $request = null;
 
-	public $success;
-	public $code;
-	public $message;
+    public $success;
+    public $code;
+    public $message;
 
-	public $contents;
+    public $contents;
 
-	public function setRequest($request) {
-		$this->request = $request;
-	}
+    public function setRequest($request) {
+        $this->request = $request;
+    }
 }

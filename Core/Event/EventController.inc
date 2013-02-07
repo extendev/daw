@@ -29,8 +29,8 @@ class EventController {
      * @param string $event name of the event
      * @param string[] filters
      */
-	public function registerListener($listener, $event, $filters = array()) {
-	}
+    public function registerListener($listener, $event, $filters = array()) {
+    }
 
     /**
      * Fire an event to the application
@@ -39,6 +39,6 @@ class EventController {
      * @param string $source class origin of the event
      * @param array(string => string) params of the event
      */
-	public function fireEvent($name, $source, $params = array()) {
-	}
+    public function fireEvent($name, $source, $params = array()) {
+    }
 }

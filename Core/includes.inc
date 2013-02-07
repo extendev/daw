@@ -13,14 +13,13 @@
  * Hub core includes
  */
 
-define('MODULE_PATH', realpath(PROJECT_BASEPATH . '/modules'));
-define('PROVIDER_PATH', realpath(PROJECT_BASEPATH . '/providers'));
+define('MODULE_PATH', realpath(PROJECT_BASEPATH . '/Modules'));
+define('PROVIDER_PATH', realpath(PROJECT_BASEPATH . '/Providers'));
 
 // Core includes
 require_once 'Core/Core.inc';
-require_once 'Core/business/AutoLoader.inc';
-require_once 'Core/exception/Exception.inc';
+require_once 'Core/Business/AutoLoader.inc';
+require_once 'Core/Exception/Exception.inc';
 
-// Load default providers
-//require_once PROVIDER_PATH . '/includes.inc';
+// 3rd-Part vendor libraries
 require_once 'vendor/autoload.php';

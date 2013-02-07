@@ -25,53 +25,53 @@ namespace Daw\Core\Formatter;
  */
 abstract class Formatter {
 
-	/**
-	 * @var Daw\Core\Core Core instance
-	 */
-	protected $core = null;
+    /**
+     * @var Daw\Core\Core Core instance
+     */
+    protected $core = null;
 
-	/**
-	 * @var FormatterContext Formatter context
-	 */
-	protected $context = null;
+    /**
+     * @var FormatterContext Formatter context
+     */
+    protected $context = null;
 
 
-	/**
-	 * Constructor
-	 *
-	 * @param Daw\Core\Core $core
-	 */
-	public function __construct($core) {
-		$this->core = $core;
-	}
+    /**
+     * Constructor
+     *
+     * @param Daw\Core\Core $core
+     */
+    public function __construct($core) {
+        $this->core = $core;
+    }
 
-	/**
-	 * Set current formatting context
-	 *
-	 * @param FormatterContext $context
-	 */
-	public function setContext($context) {
-		$this->context = $context;
-	}
+    /**
+     * Set current formatting context
+     *
+     * @param FormatterContext $context
+     */
+    public function setContext($context) {
+        $this->context = $context;
+    }
 
-	/**
-	 * Return true if formatter supports given object and possibly given format
-	 *
-	 * @param object $object object to render
-	 * @param Daw\Core\Formatter\Format $format format to be used for rendering
-	 * @return boolean
-	 */
-	public abstract function isFormatterFor($object, $format = null);
+    /**
+     * Return true if formatter supports given object and possibly given format
+     *
+     * @param object $object object to render
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
+     * @return boolean
+     */
+    public abstract function isFormatterFor($object, $format = null);
 
-	/**
-	 * Render object passed as first argument.
-	 *
-	 * Format to be used for renderring the object is passed as second argument
-	 * in case the formatter supports multiple formats
-	 *
-	 * @param object $object object to render
-	 * @param Daw\Core\Formatter\Format $format format to be used for rendering
-	 * @return
-	 */
-	public abstract function render($object, $format);
+    /**
+     * Render object passed as first argument.
+     *
+     * Format to be used for renderring the object is passed as second argument
+     * in case the formatter supports multiple formats
+     *
+     * @param object $object object to render
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
+     * @return
+     */
+    public abstract function render($object, $format);
 }

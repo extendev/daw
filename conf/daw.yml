@@ -1,12 +1,12 @@
 version: 0.1
 
-defaultObject: core
+defaultObject: Core
 defaultOperation: help
 
 providers:
-  log: core
-  security: core
-  cache: core
+  log: Core
+  security: Core
+  cache: Core
 
 modules:
   Core:

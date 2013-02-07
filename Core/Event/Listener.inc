@@ -29,5 +29,5 @@ interface Listener {
      * @param string $source class origin of the event
      * @param array(string => string) params of the event
      */
-	public function on($event, $source, $params);
+    public function on($event, $source, $params);
 }

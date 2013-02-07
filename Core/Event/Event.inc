@@ -25,7 +25,7 @@ class Event {
     /**
      * @var string $name name of the event
      */
-	public final $name;
+    public final $name;
 
     /**
      * @var object $target object for which the target has been fired
@@ -35,5 +35,5 @@ class Event {
     /**
      * @var array $params additional event information
      */
-	public final $params;
+    public final $params;
 }

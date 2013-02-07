@@ -34,11 +34,11 @@ class Exception extends \Exception {
      *
      * @return array exception data
      */
-	public function getData() {
-		return array(
-			'type' => get_class($this),
-			'message' => $this->getMessage()
-		);
-	}
+    public function getData() {
+        return array(
+            'type' => get_class($this),
+            'message' => $this->getMessage()
+        );
+    }
 
 }

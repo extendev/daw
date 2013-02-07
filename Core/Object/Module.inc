@@ -21,20 +21,20 @@ namespace Daw\Core\Object;
  */
 class Module {
 
-	private $info = array();
+    private $info = array();
 
-	public function __construct($info = array()) {
-		$this->info = $info;
-	}
+    public function __construct($info = array()) {
+        $this->info = $info;
+    }
 
-	/**
-	* Return module information
-	*/
-	public function info($value = null) {
-		if ($value === null) {
-			return $this->info;
-		}
+    /**
+    * Return module information
+    */
+    public function info($value = null) {
+        if ($value === null) {
+            return $this->info;
+        }
 
-		return $this->info[$value];
-	}
+        return $this->info[$value];
+    }
 }

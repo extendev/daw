@@ -46,19 +46,19 @@ class TextIndentFormatter extends \Daw\Core\Formatter\Formatter {
      * @return
      */
     public function render($object, $format) {
-    	$contents = null;
-		if (is_array($object)) {
-			$indentLevel = $this->context->indentLevel;
-			$this->context->indentLevel = ($indentLevel === null) ? 0 : ($indentLevel + 1);
-			$contents .= "\n";
-			foreach ($object as $label => $item) {
-				$contents .= str_repeat('  ', $this->context->indentLevel) . "$label:" . $this->core->render($item, $format) . "\n";
-			}
-			$this->context->indentLevel = $indentLevel;
-		} else {
-			$contents = $this->core->yaml->dump($object, 2, $this->context->get('indentLevel', 1));
-		}
+        $contents = null;
+        if (is_array($object)) {
+            $indentLevel = $this->context->indentLevel;
+            $this->context->indentLevel = ($indentLevel === null) ? 0 : ($indentLevel + 1);
+            $contents .= "\n";
+            foreach ($object as $label => $item) {
+                $contents .= str_repeat('  ', $this->context->indentLevel) . "$label:" . $this->core->render($item, $format) . "\n";
+            }
+            $this->context->indentLevel = $indentLevel;
+        } else {
+            $contents = $this->core->yaml->dump($object, 2, $this->context->get('indentLevel', 1));
+        }
 
-		return $contents === 'null' ? '' : $contents;
+        return $contents === 'null' ? '' : $contents;
     }
 }

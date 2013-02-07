@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace namespace Daw\Core\Connector;
+namespace Daw\Core\Connector;
 
 /**
  * Application Connector interface

@@ -36,9 +36,9 @@ abstract class Enum {
      */
     public static function parseValue($value) {
         foreach (static::constants as $constant) {
-        	if ($value === $constant) {
-        		return $value;
-        	}
+            if ($value === $constant) {
+                return $value;
+            }
         }
 
         throw new EnumInvalidValueException();
@@ -50,6 +50,6 @@ abstract class Enum {
      * @return string[] list of enumeration values
      */
     public static function values() {
-    	return static::constants;
+        return static::constants;
     }
 }

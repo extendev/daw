@@ -12,24 +12,24 @@
 namespace Daw\Core\Service;
 
 abstract class ServiceRequest {
-	public $date;
-	public $args = array();
+    public $date;
+    public $args = array();
 
-	public function __construct() {
-		$this->date = time();
-	}
+    public function __construct() {
+        $this->date = time();
+    }
 
-	/**
-	 * Return list of arguments passed to the service and to be used by the module call
-	 *
-	 * @return array
-	 */
-	public abstract function getArgs();
+    /**
+     * Return list of arguments passed to the service and to be used by the module call
+     *
+     * @return array
+     */
+    public abstract function getArgs();
 
-	/**
-	 * Provides information related to the user authentication
-	 *
-	 * @return array
-	 */
-	public abstract function getAuthenticationToken();
+    /**
+     * Provides information related to the user authentication
+     *
+     * @return array
+     */
+    public abstract function getAuthenticationToken();
 }

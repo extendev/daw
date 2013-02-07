@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace namespace Daw\Core\Connector\Otrs;
+namespace Daw\Core\Connector\Otrs;
 
 /**
  * Application Connector - OTRS
@@ -25,7 +25,7 @@ namespace namespace Daw\Core\Connector\Otrs;
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$
  */
-class OtrsConnector implements namespace Daw\Core\Connector\Connector {
+class OtrsConnector implements Daw\Core\Connector\Connector {
 
     /**
      * Options to connect to the OTRS service
@@ -37,7 +37,7 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      *
      * @var array $options options used to connect to the SSHd server
      */
-	protected $options = array();
+    protected $options = array();
 
 
     /**
@@ -45,9 +45,9 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      *
      * @param array[string => string] $options default options to use
      */
-	public function __construct($options) {
-		$this->options = $options;
-	}
+    public function __construct($options) {
+        $this->options = $options;
+    }
 
     /**
      * Get option currently set
@@ -72,10 +72,10 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      * @param string $login
      * @param string $password
      */
-	public function setAuthentication($login, $password) {
-		$this->options['login'] = $login;
-		$this->options['password'] = $password;
-	}
+    public function setAuthentication($login, $password) {
+        $this->options['login'] = $login;
+        $this->options['password'] = $password;
+    }
 
     /**
      * Call any OTRS public API
@@ -83,28 +83,28 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      * @param array[string => string] $params call parameters
      * @return string call response instance
      */
-	protected function call($params) {
-		$client = new \SoapClient(null, array(
-		    'location'  => $this->getOption('location'),
-		    'uri'       => "Core",
-		    'trace'     => 1,
-		    'login'     => $this->getOption('login'),
-		    'password'  => $this->getOption('password'),
-		    'style'     => SOAP_RPC,
-		    'use'       => SOAP_ENCODED
-		));
+    protected function call($params) {
+        $client = new \SoapClient(null, array(
+            'location'  => $this->getOption('location'),
+            'uri'       => "Core",
+            'trace'     => 1,
+            'login'     => $this->getOption('login'),
+            'password'  => $this->getOption('password'),
+            'style'     => SOAP_RPC,
+            'use'       => SOAP_ENCODED
+        ));
 
-		$callParams = array_merge(
-			array(
-				$this->getOption('login'), $this->getOption('password')
-			),
-			$params
-		);
+        $callParams = array_merge(
+            array(
+                $this->getOption('login'), $this->getOption('password')
+            ),
+            $params
+        );
 
-		$result = $client->__soapCall("Dispatch", $callParams);
+        $result = $client->__soapCall("Dispatch", $callParams);
 
-		return $result;
-	}
+        return $result;
+    }
 
     /**
      * OTRS - Get Ticket information
@@ -112,23 +112,23 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      * @param long $ticketId
      * @return string TicketGet instance
      */
-	public function TicketGet($ticketId) {
-		return $this->call(array(
-			"TicketObject", "TicketGet",
-			"TicketID", $ticketId
-		));
-	}
+    public function TicketGet($ticketId) {
+        return $this->call(array(
+            "TicketObject", "TicketGet",
+            "TicketID", $ticketId
+        ));
+    }
 
     /**
      * OTRS - Create new ticket and return its ID
      *
      * @return string TicketCreateNumber instance
      */
-	public function TicketCreateNumber() {
-		return $this->call(array(
-				"TicketObject", "TicketCreateNumber"
-		));
-	}
+    public function TicketCreateNumber() {
+        return $this->call(array(
+                "TicketObject", "TicketCreateNumber"
+        ));
+    }
 
     /**
      * OTRS - Search for existing ticket using its ID
@@ -136,11 +136,11 @@ class OtrsConnector implements namespace Daw\Core\Connector\Connector {
      * @param long $ticketId
      * @return string TicketNumberLookup instance
      */
-	public function TicketNumberLookup($ticketId) {
-		return $this->call(array(
-			"TicketObject", "TicketNumberLookup",
-			"TicketID", $ticketId
-		));
-	}
+    public function TicketNumberLookup($ticketId) {
+        return $this->call(array(
+            "TicketObject", "TicketNumberLookup",
+            "TicketID", $ticketId
+        ));
+    }
 
 }

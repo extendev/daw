@@ -27,39 +27,39 @@ namespace Daw\Core\Exception;
  */
 class OperationException extends Exception {
 
-	/**
-	 * @var string Associated operation where the exception has been triggered
-	 */
-	protected $operation = null;
+    /**
+     * @var string Associated operation where the exception has been triggered
+     */
+    protected $operation = null;
 
 
-	/**
-	 * Constructor
-	 *
-	 * @param string $operation operation
-	 * @param string $message exception message
-	 * @param mixed $code exception code
-	 */
-	public function __construct($operation, $message, $code = -1) {
-		$this->operation = $operation;
+    /**
+     * Constructor
+     *
+     * @param string $operation operation
+     * @param string $message exception message
+     * @param mixed $code exception code
+     */
+    public function __construct($operation, $message, $code = -1) {
+        $this->operation = $operation;
 
-		parent::__construct($message, $code);
-	}
+        parent::__construct($message, $code);
+    }
 
-	/**
-	 * Return exception data: type, message, operation, argument name, argument value, operation args
-	 *
-	 * @return array exception data
-	 */
-	public function getData() {
-		return array(
-				'type' => get_class($this),
-				'message' => $this->getMessage(),
-				'operation' => get_class($this->operation),
-				'name' => isset($this->argName) ? $this->argName : null,
-				'value' => isset($this->argValue) ? $this->argValue : null,
-				'args' => print_r($this->operation->getArgs(), true)
-		);
-	}
+    /**
+     * Return exception data: type, message, operation, argument name, argument value, operation args
+     *
+     * @return array exception data
+     */
+    public function getData() {
+        return array(
+                'type' => get_class($this),
+                'message' => $this->getMessage(),
+                'operation' => get_class($this->operation),
+                'name' => isset($this->argName) ? $this->argName : null,
+                'value' => isset($this->argValue) ? $this->argValue : null,
+                'args' => print_r($this->operation->getArgs(), true)
+        );
+    }
 
 }

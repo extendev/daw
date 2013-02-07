@@ -21,44 +21,44 @@ namespace Daw\Core\Exception;
  */
 class OperationArgumentException extends OperationException {
 
-	/**
-	 * @var argName name of the offending argument
-	 */
-	protected $argName = null;
+    /**
+     * @var argName name of the offending argument
+     */
+    protected $argName = null;
 
-	/**
-	 * @var argValue value of the offending argument
-	 */
-	protected $argValue = null;
+    /**
+     * @var argValue value of the offending argument
+     */
+    protected $argValue = null;
 
 
-	/**
-	 * Constructor
-	 *
-	 * @param string $operation operation
-	 * @param string argName name of the offending argument
-	 * @param string $message exception message
-	 * @param object value of the offending argument
-	 */
-	public function __construct($operation, $argName, $message, $argValue = null) {
-		parent::__construct($operation, $message, 302);
+    /**
+     * Constructor
+     *
+     * @param string $operation operation
+     * @param string argName name of the offending argument
+     * @param string $message exception message
+     * @param object value of the offending argument
+     */
+    public function __construct($operation, $argName, $message, $argValue = null) {
+        parent::__construct($operation, $message, 302);
 
-		$this->argName = $argName;
-		$this->argValue = $argValue;
-	}
+        $this->argName = $argName;
+        $this->argValue = $argValue;
+    }
 
-	/**
-	 * Return exception data: type, operation, message, argument name, argument value
-	 *
-	 * @return array exception data
-	 */
-	public function getData() {
-		return array(
-			'type' => get_class($this),
-			'operation' => get_class($this->operation),
-			'message' => $this->getMessage(),
-			'name' => $this->argName,
-			'value' => $this->argValue
-		);
-	}
+    /**
+     * Return exception data: type, operation, message, argument name, argument value
+     *
+     * @return array exception data
+     */
+    public function getData() {
+        return array(
+            'type' => get_class($this),
+            'operation' => get_class($this->operation),
+            'message' => $this->getMessage(),
+            'name' => $this->argName,
+            'value' => $this->argValue
+        );
+    }
 }

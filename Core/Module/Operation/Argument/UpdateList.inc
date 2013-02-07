@@ -33,17 +33,17 @@ class UpdateList {
     /**
      * @var array data to be added
      */
-	public $added = array();
+    public $added = array();
 
     /**
      * @var array data to be removed
      */
-	public $removed = array();
+    public $removed = array();
 
     /**
      * @var array data to be set
      */
-	public $set = array();
+    public $set = array();
 
 
     /**
@@ -51,17 +51,17 @@ class UpdateList {
      *
      * @param
      */
-	public function __construct($list = array()) {
-		foreach ($list as $idx => $value) {
-			if ($value[0] === '-') {
-				$this->removed[] = substr($value, 1);
-			} elseif ($value[0] === '+') {
-				$this->added[] = substr($value, 1);
-			} else {
-				$this->set[] = $value;
-			}
-		}
-	}
+    public function __construct($list = array()) {
+        foreach ($list as $idx => $value) {
+            if ($value[0] === '-') {
+                $this->removed[] = substr($value, 1);
+            } elseif ($value[0] === '+') {
+                $this->added[] = substr($value, 1);
+            } else {
+                $this->set[] = $value;
+            }
+        }
+    }
 
     /**
      * Update specified with data set in this object
@@ -70,7 +70,7 @@ class UpdateList {
      * @return mixed[] the resulting list
      */
     public function update($list) {
-		if ($this->set) {
+        if ($this->set) {
             $list = $this->set;
         }
         if (isset($this->added)) {

@@ -46,18 +46,18 @@ abstract class Object {
     public abstract function primaryKey();
 
     public function __get($key) {
-    	if (isset($this->info[$key])) {
-    		return $this->info[$key];
-    	}
-    	return null;
+        if (isset($this->info[$key])) {
+            return $this->info[$key];
+        }
+        return null;
     }
 
     public function __set($key, $value) {
-    	$this->info[$key] = $value;
-    	return $this;
+        $this->info[$key] = $value;
+        return $this;
     }
 
     public function clear() {
-    	$this->info = array();
+        $this->info = array();
     }
 }

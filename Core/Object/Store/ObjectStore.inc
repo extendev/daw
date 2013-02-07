@@ -24,101 +24,101 @@ namespace Daw\Core\Object\Store;
  */
 abstract class ObjectStore {
 
-	/**
-	 * AutoCommit mode
-	 *
-	 * By default, auto commit is enabled, meaning that
-	 * every CRUD action will be directly commited to the store
-	 *
-	 * @var boolean
-	 */
-	protected $autoCommit = true;
+    /**
+     * AutoCommit mode
+     *
+     * By default, auto commit is enabled, meaning that
+     * every CRUD action will be directly commited to the store
+     *
+     * @var boolean
+     */
+    protected $autoCommit = true;
 
 
-	/**
-	 * Constructor
-	 */
-	protected function __construct() {
-		$this->init();
-	}
+    /**
+     * Constructor
+     */
+    protected function __construct() {
+        $this->init();
+    }
 
-	/**
-	 * Initialize the store
-	 */
-	protected function init() {
-	}
+    /**
+     * Initialize the store
+     */
+    protected function init() {
+    }
 
-	/**
-	 * Search
-	 *
-	 * @param object $id
-	 * @return Object
-	 */
-	public abstract function search($params = null);
+    /**
+     * Search
+     *
+     * @param object $id
+     * @return Object
+     */
+    public abstract function search($params = null);
 
-	/**
-	 * Check if an object exists
-	 *
-	 * @param unknown_type $object
-	 */
-	public abstract function exists($object);
+    /**
+     * Check if an object exists
+     *
+     * @param unknown_type $object
+     */
+    public abstract function exists($object);
 
-	/**
-	* Get a reference of an object
-	*
-	* @param object $id
-	* @return Object
-	*/
-	public abstract function read($id);
+    /**
+    * Get a reference of an object
+    *
+    * @param object $id
+    * @return Object
+    */
+    public abstract function read($id);
 
-	/**
-	 * Create a new object in the store
-	 *
-	 * @param Object $object
-	 */
-	public abstract function create($object);
+    /**
+     * Create a new object in the store
+     *
+     * @param Object $object
+     */
+    public abstract function create($object);
 
-	/**
-	 * Update an object and store it in the store
-	 * @param unknown_type $object
-	 */
-	public abstract function update($object);
+    /**
+     * Update an object and store it in the store
+     * @param unknown_type $object
+     */
+    public abstract function update($object);
 
-	/**
-	* Save the object to the store
-	*
-	* @param Object $object
-	*/
-	public abstract function save($object);
+    /**
+    * Save the object to the store
+    *
+    * @param Object $object
+    */
+    public abstract function save($object);
 
-	/**
-	 * Delete an object
-	 *
-	 * @param unknown_type $object
-	 */
-	public abstract function delete($object);
+    /**
+     * Delete an object
+     *
+     * @param unknown_type $object
+     */
+    public abstract function delete($object);
 
-	/**
-	 * Delete all objects
-	 */
-	public abstract function clear();
+    /**
+     * Delete all objects
+     */
+    public abstract function clear();
 
-	/**
-	 * Set auto commit mode
-	 *
-	 * @param boolean $flag
-	 */
-	public function setAutoCommit($flag = true) {
-		$this->autoCommit = $flag;
-	}
+    /**
+     * Set auto commit mode
+     *
+     * @param boolean $flag
+     */
+    public function setAutoCommit($flag = true) {
+        $this->autoCommit = $flag;
+    }
 
-	/**
-	 * Return auto commit mode valud
-	 *
-	 * @return boolean
-	 */
-	public function getAutoCommit() {
-		return $this->autoCommit;
-	}
+    /**
+     * Return auto commit mode valud
+     *
+     * @return boolean
+     */
+    public function getAutoCommit() {
+        return $this->autoCommit;
+    }
 
 }

@@ -11,9 +11,9 @@
 
 namespace Daw\Core\Service;
 
-use \Daw\Core\Service\Service
-use \Daw\Core\Service\Cli\CliServiceRequest
-use \Daw\Core\Service\Cli\CliServiceResponse
+use \Daw\Core\Service\Service;
+use \Daw\Core\Service\Cli\CliServiceRequest;
+use \Daw\Core\Service\Cli\CliServiceResponse;
 
 /**
 * Command Line Service
@@ -33,17 +33,17 @@ use \Daw\Core\Service\Cli\CliServiceResponse
 */
 class CliService extends Service {
 
-	const RESPONSE_FORMAT =  'TextIndent';
+    const RESPONSE_FORMAT =  'TextIndent';
 
-	public function getRequest() {
-		return new CliServiceRequest();
-	}
+    public function getRequest() {
+        return new CliServiceRequest();
+    }
 
-	public function buildResponse() {
-		return new CliServiceResponse();
-	}
+    public function buildResponse() {
+        return new CliServiceResponse();
+    }
 
-	public function getResponseFormat() {
-		return self::RESPONSE_FORMAT;
-	}
+    public function getResponseFormat() {
+        return self::RESPONSE_FORMAT;
+    }
 }
