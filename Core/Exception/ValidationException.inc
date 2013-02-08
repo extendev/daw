@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>

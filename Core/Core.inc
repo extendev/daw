@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -716,7 +716,7 @@ class Core {
             case self::PATH_FILES:
                 return FileUtil::concat($this->basePath, '/var/run', $filename);
                 break;
-            case self::PATH_FILES:
+            case self::PATH_BASE:
             default:
                 return FileUtil::concat($this->basePath, $filename);
                 break;
