@@ -11,7 +11,17 @@
 
 namespace Daw\Core\Provider\Log;
 
+/**
+ * Log level class
+ * This class provides all allowed log level values to be used with log provider
+ *
+ * @package Daw
+ * @subpackage Provider
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class Level {
+
     const FATAL = 0;
     const ERROR = 10;
     const WARN = 20;
@@ -20,6 +30,12 @@ class Level {
     const DEBUG = 200;
     const TRACE = 255;
 
+    /**
+     * Return Level constant based on string representation
+     *
+     * @param string $value string log level to parse
+     * @return the log value if found, NULL otherwise
+     */
     public static function parseValue($value) {
         switch ($value) {
             case 'FATAL':
@@ -44,5 +60,7 @@ class Level {
                 return self::TRACE;
                 break;
         }
+
+        return null;
     }
 }

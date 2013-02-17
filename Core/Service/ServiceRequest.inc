@@ -11,10 +11,30 @@
 
 namespace Daw\Core\Service;
 
+/**
+ * Service request base class
+ *
+ * @package Daw
+ * @subpackage Service
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 abstract class ServiceRequest {
+
+    /**
+     * @var date $date date request has been generated
+     */
     public $date;
+
+    /**
+     * @var array associated request arguments
+     */
     public $args = array();
 
+
+    /**
+     * Constructor
+     */
     public function __construct() {
         $this->date = time();
     }

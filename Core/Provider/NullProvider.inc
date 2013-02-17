@@ -13,6 +13,14 @@ namespace Daw\Core\Provider;
 
 require_once 'Provider.inc';
 
+/**
+ * Null Provider class - does nothing
+ *
+ * @package Daw
+ * @subpackage Provider
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class NullProvider extends \Daw\Core\Provider\Provider {
 
     /**

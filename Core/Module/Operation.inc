@@ -41,7 +41,10 @@ abstract class Operation {
     protected $module = array();
 
     /**
-     * @var Module Parent module
+     * Operation information extracted by Daw module
+     * and extracted from module.info file
+     *
+     * @var array operation info
      */
     protected $info = array();
 
@@ -55,6 +58,7 @@ abstract class Operation {
      * Constructor
      *
      * @param Module $module
+     * @param array operation info
      */
     public function __construct($module, $info) {
         $this->module = $module;
@@ -168,9 +172,16 @@ abstract class Operation {
 
     /**
     * Validate an argument against a given format
+    * Autovalidation may be performed if module owner specified in Module's module.info description
+    * of the operation different information for the argument like its format or allowed options.
     *
-    * @param string $arg
-    * @param string $format
+    * You may want to override this method to add specific validation for your arguments
+    *
+    * @param string $argName name of the argument
+    * @param object $arg value of the argument
+    * @param string $format format defined in operation description
+    * @param array $formatOptions array possible options allowed - if set, the argument shall be set with one of them
+    * @param string $formatHint hint associated to the argument - can be used as publishable information
     */
     protected function validateFormat($argName, $arg, $format, $formatOptions = array(), $formatHint = null) {
 
@@ -347,6 +358,14 @@ abstract class Operation {
         return $value;
     }
 
+    /**
+     * Call operation
+     * This method performs validation by calling validate()
+     * and if no violation has been found calls run()
+     *
+     * @param array $args arguments specified for this operation
+     * @return object the response of the operation
+     */
     public function call($args = array()) {
         $this->args = $args;
         $this->validate($this->args);
@@ -356,7 +375,10 @@ abstract class Operation {
 
     /**
      * Return pre-formatted message for success case
+     * This method is called by the run() method if the operation completed successfully.
      *
+     * @param string $message message to be displayed to the user
+     * @param array $data additionnal data that may have been specified by the operation when calling the method and to be included in the response.
      * @return array
      */
     protected function success($message = 'Operation completed successfully', $data = null) {
@@ -374,7 +396,12 @@ abstract class Operation {
 
     /**
      * Return pre-formatted message for failure case
+     * This method is called by the run() method if the operation failed to complete.
+     * It may include a code to identify a type of error and additional data to understand the context of the failure.
      *
+     * @param string $message message to be displayed to the user
+     * @param string $code code associated to the error
+     * @param array $data additionnal data that may have been specified by the operation when calling the method and to be included in the response.
      * @return array
      */
     protected function failure($message = 'Operation failed', $code = null, $data = null) {
@@ -394,5 +421,12 @@ abstract class Operation {
         return $msg;
     }
 
+    /**
+     * Run the operation
+     * This method may return data to be returned to the user upon successful completion of the operation
+     *
+     * @param $args arguments
+     * @return object response
+     */
     public abstract function run($args = array());
 }

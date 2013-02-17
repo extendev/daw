@@ -13,5 +13,13 @@ namespace Daw\Core\Service\Http;
 
 use \Daw\Core\Service\ServiceResponse;
 
+/**
+ * Service response default class for HTTP service
+ *
+ * @package Daw
+ * @subpackage Object
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class HttpServiceResponse extends ServiceResponse {
 }

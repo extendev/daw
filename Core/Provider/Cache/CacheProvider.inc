@@ -11,6 +11,15 @@
 
 namespace Daw\Core\Provider\Cache;
 
+/**
+ * Cache Provider base abstract class
+ * Extends this class if you wish to implement your own cache provider
+ *
+ * @package Daw
+ * @subpackage Provider
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 abstract class CacheProvider extends \Daw\Core\Provider\Provider {
 
   /**

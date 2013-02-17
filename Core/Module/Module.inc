@@ -27,17 +27,17 @@ class Module {
     protected $name = null;
 
     /**
-     *
+     * @var Core daw instance
      */
     protected $core = null;
 
     /**
-     *
+     * @var string module information as collected from Module's module.info file
      */
     protected $info = null;
 
     /**
-     *
+     * @var array module configuration settings as specified in module .yml file
      */
     protected $config = null;
 
@@ -48,7 +48,8 @@ class Module {
      * This constructor does not call load() method.
      * It is up to the parent that instanciated the object to trigger module loading.
      *
-     * @param Core $core
+     * @param Core $core daw instance
+     * @param string $name name of the module
      */
     public function __construct($core, $name) {
         $this->core = $core;
@@ -74,9 +75,10 @@ class Module {
     }
 
     /**
-     * Return module information
+     * Return module information or FALSE if not set
      *
-     * @return object
+     * @param object $value label/key of the module information to return
+     * @return object the module information if defined, FALSE otherwise
      */
     public function info($value = null) {
         if ($value === null) {
@@ -91,7 +93,11 @@ class Module {
     }
 
     /**
-     * Return installation path of the module base directory or child
+     * Return absoluate path of a file included in module, or
+     * module installation path if no file has been specified
+     *
+     * @param string $file relative path of the file
+     * @return string absolute path of the file
      */
     protected function getPath($file) {
         return $this->core()->basePath . '/Modules/' . $this->getName() . '/' . $file;
@@ -112,7 +118,11 @@ class Module {
     }
 
     /**
-     * Return configuration of the module
+     * Return configuration setting of the module, FALSE if not set
+     *
+     * @param string $name name of the configuration setting to find
+     * @param object $default value to return if the configuration setting is not set
+     * @return object configuration setting value or FALSE if not set and no default value has been specified
      */
     public function config($name = null, $default = false) {
         if ($name == null) {
@@ -142,10 +152,12 @@ class Module {
     }
 
     /**
-    * Return list of operations for this module
-    *
-    * @see Daw\Core\Module.Module::operationList()
-    */
+     * Return list of operations for this module and for a specfic object
+     *
+     * @param string $objectName name of the object
+     * @return array list of Operation instances available for the object
+     * @see Daw\Core\Module.Module::operationList()
+     */
     public function operationList($objectName = null) {
         $operationList = array();
         foreach ($this->info('operations') as $operationName => $operationInfo) {
@@ -156,8 +168,11 @@ class Module {
     }
 
     /**
-     * Get operation information
+     * Get operation information for this module and for a specfic object, FALSE otherwise
      *
+     * @param string $objectName name of the object
+     * @param string $operationName name of the operation
+     * @return array information associated to the operation as available in Module's module.info file
      * @see Daw\Core\Module.Module::operationInfo()
      */
     public function operationInfo($objectName, $operationName) {
@@ -174,6 +189,14 @@ class Module {
         return false;
     }
 
+    /**
+     * Call module operation
+     *
+     * @param string $object name of the object the operation is associated to. May be null for module global operation
+     * @param string $operationName name of the operation to call
+     * @param array arguments to pass to the operation
+     * @return object response returned by the operation if completed successfully
+     */
     public function call($object, $operationName, $args = array()) {
         $operationNS = 'Daw\\Modules\\' . $this->getName() . '\\Operations\\' . ucwords($object) . ucwords($operationName);
         $operation = new $operationNS($this, $this->operationInfo($object, $operationName));
@@ -197,18 +220,19 @@ class Module {
     }
 
     /**
-     * Return provider for specific feature
+     * Return list of all providers published by the module
      *
-     * @param string $feature
+     * @return array key/value pair list of proviers, where key is the feature provider, and name the actual provider class name
      */
     public function getProviders() {
         return isset($this->info['provides']) ? $this->info['provides'] : array();
     }
 
     /**
-     * Return provider for specific feature
+     * Return provider for specific feature, or NULL if none available for this module
      *
-     * @param string $feature
+     * @param string feature requested
+     * @return Provider the provider instance published by the module
      */
     public function getProvider($feature) {
         if (!$this->isProviderFor($feature)) {
@@ -221,7 +245,13 @@ class Module {
         return $provider;
     }
 
-
+    /**
+     * Return TRUE if module has an operation with given name of for the specified $object, false otherwise
+     *
+     * @param string $object name of the object
+     * @param string $operationName name of the operation
+     * @return boolean
+     */
     public function isHandlerFor($object, $operationName) {
         return true;
     }

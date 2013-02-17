@@ -11,8 +11,15 @@
 
 namespace Daw\Core\Provider\Security;
 
-//require_once 'Core/provider/Provider.inc';
-
+/**
+ * Security Provider base abstract class
+ * Extends this class if you wish to implement your own security provider
+ *
+ * @package Daw
+ * @subpackage Provider
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 abstract class SecurityProvider extends \Daw\Core\Provider\Provider {
 
     /**

@@ -21,9 +21,24 @@ namespace Daw\Core\Object;
  */
 class Operation {
 
+    /**
+     * @var string $name name of the operation
+     */
     private $name = null;
+
+    /**
+     * @var array $info operation information as available in the Module's module.info file
+     * @private
+     */
     private $info = array();
 
+
+    /**
+     * Constructor
+     *
+     * @param string $name name of the operation
+     * @param array $info module information as available in the Module's module.info file
+     */
     public function __construct($name, $info = array()) {
         $this->name = $name;
         $this->info = $info;
@@ -37,13 +52,16 @@ class Operation {
     }
 
     /**
-    * Return module information
-    */
-    public function info($value = null) {
-        if ($value === null) {
+     * Return specific operation information, or all information if no name specified
+     *
+     * @param string $name name of the information to retrieve
+     * @return mixed
+     */
+    public function info($name = null) {
+        if ($name === null) {
             return $this->info;
         }
 
-        return $this->info[$value];
+        return $this->info[$name];
     }
 }

@@ -21,43 +21,86 @@ namespace Daw\Core\Object;
  */
 abstract class Object {
 
+    /**
+     * @var array $info module information as available in the Module's module.info file
+     * @private
+     */
     private $info = array();
 
+
+    /**
+     * Constructor
+     *
+     * @param array $info module information as available in the Module's module.info file
+     */
     public function __construct($info = array()) {
         $this->info = $info;
     }
 
     /**
-    * Return module information
-    */
-    public function info($value = null) {
-        if ($value === null) {
+     * Return specific module information, or all module information if no name specified
+     *
+     * @param string $name name of the information to retrieve
+     * @return mixed
+     */
+    public function info($name = null) {
+        if ($name === null) {
             return $this->info;
         }
 
-        return $this->info[$value];
+        return $this->info[$name];
     }
 
+    /**
+     * Return string representation of the object
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->info();
     }
 
-
+    /**
+     * Return name of the property to be used as primary key of the object,
+     * i.e unique identifier to find an object in a store
+     *
+     * @return string name of the primary key
+     */
     public abstract function primaryKey();
 
-    public function __get($key) {
-        if (isset($this->info[$key])) {
-            return $this->info[$key];
+    /**
+     * Magic getter to return object property based on its name, NULL if not found
+     *
+     * @param string $name name of the property
+     * @return object property value, NULL if not found
+     */
+    public function __get($name) {
+        if (isset($this->info[$name])) {
+            return $this->info[$name];
         }
+
         return null;
     }
 
-    public function __set($key, $value) {
-        $this->info[$key] = $value;
+    /**
+     * Magic setter for object properties
+     *
+     * @param string $name name of the property
+     * @param object $value value to set to the property
+     * @return Object the object instance
+     */
+    public function __set($name, $value) {
+        $this->info[$name] = $value;
         return $this;
     }
 
+    /**
+     * Remove all property values
+     *
+     * @return Object the object instance
+     */
     public function clear() {
         $this->info = array();
+        return $this;
     }
 }

@@ -21,20 +21,33 @@ namespace Daw\Core\Object;
  */
 class Module {
 
+    /**
+     * @var array $info module information as available in the Module's module.info file
+     * @private
+     */
     private $info = array();
 
+
+    /**
+     * Constructor
+     *
+     * @param array $info module information as available in the Module's module.info file
+     */
     public function __construct($info = array()) {
         $this->info = $info;
     }
 
     /**
-    * Return module information
-    */
-    public function info($value = null) {
-        if ($value === null) {
+     * Return specific module information, or whole list if no config name has been specified
+     *
+     * @param string $name name of the informatio
+     * @return mixed
+     */
+    public function info($name = null) {
+        if ($name === null) {
             return $this->info;
         }
 
-        return $this->info[$value];
+        return $this->info[$name];
     }
 }

@@ -13,5 +13,13 @@ namespace Daw\Core\Service;
 
 use \Daw\Core\Service\ServiceResponse;
 
+/**
+ * Service response default class for CLI service
+ *
+ * @package Daw
+ * @subpackage Object
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class CliServiceResponse extends ServiceResponse {
 }

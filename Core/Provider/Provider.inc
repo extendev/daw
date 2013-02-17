@@ -11,12 +11,31 @@
 
 namespace Daw\Core\Provider;
 
+/**
+ * Provider base class
+ *
+ * @package Daw
+ * @subpackage Provider
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 abstract class Provider {
 
+    /**
+     * @var Core $core daw instance
+     */
     protected $core = null;
+
+    /**
+     * @var Module parent module instance
+     */
     protected $module = null;
 
-
+    /**
+     * Constructor
+     * @param Core $core daw instance
+     * @param Module $module parent module
+     */
     public function __construct($core, $module = null) {
         $this->core = $core;
         $this->module = $module;

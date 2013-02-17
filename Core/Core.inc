@@ -44,6 +44,9 @@ class Core {
     */
     protected static $_instance = null;
 
+    /**
+     * @var string path where application has been installed
+     */
     public $basePath;
 
     /**
@@ -86,18 +89,36 @@ class Core {
      */
     protected $response = null;
 
-
+    /**
+     * @var array $modules list of modules registered to the application
+     */
     protected $modules = array();
+
+    /**
+     * @var array $providers list of providers available
+     */
     protected $providers = array();
 
+    /**
+     * @var array $objects list of objects registered to the application
+     */
     protected $objects = array();
+
+    /**
+     * @var array $operations list of operations registered to the application
+     */
     protected $operations = array();
+
+    /**
+     * @var array $formatters list of formatters registered to the application
+     */
     protected $formatters = array();
 
 
     /**
     * Set/Get singleton instance
     *
+    * @param Core $instance daw instance
     * @return Core
     */
     final public static function instance($instance = null)
@@ -125,8 +146,8 @@ class Core {
     /**
      * Register object to be accessed directly from Core using alias specified
      *
-     * @param Object $object
-     * @param string $name
+     * @param object $object
+     * @param string $alias name to be used to refer to the object
      */
     public function register($object, $alias) {
         $this->register[$alias] = $object;
@@ -151,11 +172,28 @@ class Core {
     /*
     * FUNCTIONS
     */
+
+    /**
+     * Register a function to the application
+     *
+     * Once registered, the function call be called from all modules by
+     * calling a method from the Core instance that has as name the alias provided
+     * for registering the function.
+     *
+     * @param function the function to register
+     * @param string $alias alias to be used to acces the function
+     */
     public function registerFunction($function, $alias) {
         $this->_functions[$alias] = $function;
         $this->log->debug("  => Registered global function $alias.");
     }
 
+    /**
+     * Magic method used to call registered functions
+     *
+     * @param string $method name of the method
+     * @param array $args arguments to pass to the function
+     */
     public function __call($method, $args) {
         if (isset($this->_functions[$method])) {
             $function = $this->_functions[$method];
@@ -174,6 +212,9 @@ class Core {
      * RUN PROCESS
      */
 
+    /**
+     * Load application config specified in application configuration file
+     */
     protected function loadConfig() {
         $this->log->debug("o Load Config");
         $contents = file_get_contents($this->basePath . '/conf/Daw.yml');
@@ -182,6 +223,9 @@ class Core {
         $this->log->debug("  + Config loaded: " . strlen($contents) . " bytes.");
     }
 
+    /**
+     * Load modules registered in daw configuration file
+     */
     protected function loadModules() {
         $nbModules = 0;
         $this->log->debug("o Load Modules");
@@ -195,10 +239,21 @@ class Core {
         $this->log->debug("  + Modules loaded: " . $nbModules . "");
     }
 
+    /**
+     * Return list of registered modules
+     *
+     * @return array list of modules
+     */
     public function getModules() {
         return $this->modules;
     }
 
+    /**
+     * Return specific module based on its name, or false otherwise
+     *
+     * @param string $name name of the module
+     * @return Module module found
+     */
     public function getModule($name) {
         return isset($this->modules[$name]) ? $this->modules[$name] : false;
     }
@@ -225,11 +280,18 @@ class Core {
         $module->load();
         $module->loadConfig($this->loadModuleConfig($name));
 
-        //print_r($module->getInfo());
-
         return true;
     }
 
+    /**
+     * Load configuration for a given module
+     *
+     * The application will check the existence of a configuration YAML file that shall match module name
+     * specified with .yml as extension.
+     *
+     * @param string $name name of the module
+     * @return array module configuration if found, empty array otherwise
+     */
     protected function loadModuleConfig($name) {
         $this->log->debug("    o Load Module Config");
         $moduleConfFilePath = $this->basePath . '/Daw/conf/' . strtolower($name) . '.yml';
@@ -249,6 +311,12 @@ class Core {
 
     // CONFIG
 
+    /**
+     * Return application configuration settings for a given section/module
+     *
+     * @param string $section name of the section or the module
+     * @return array list of all configuration settings stored in the section or module defined in configuration files
+     */
     public function config($section = null) {
         if ($section === null) {
             return $this->config;
@@ -257,16 +325,29 @@ class Core {
         return isset($this->config[$section]) ? $this->config[$section] : false;
     }
 
+    /**
+     * Return service currently requested for processing request
+     *
+     * @return Service service activated by the request
+     */
     public function getService() {
         return $this->service;
     }
 
+    /**
+     * Return request currently processed
+     *
+     * @return ServiceRequest the request, if a call to the application has been made, null otherwise
+     */
     public function getRequest() {
         return $this->request;
     }
 
     // OBJECTS
 
+    /**
+     * Load objects registered by modules
+     */
     protected function loadObjects() {
         $nbObjects = 0;
         $this->log->debug("o Load Objects");
@@ -311,6 +392,12 @@ class Core {
         return isset($this->objects[$name]) ? $this->objects[$name] : false;
     }
 
+    /**
+     * Return the store registered for a given object, null otherwise
+     *
+     * @param string $objectName name of the object
+     * @return ObjectStore
+     */
     public function getObjectStore($objectName) {
         $object = $this->getObject($objectName);
         $module = $this->getModule($object[0]['module']);
@@ -324,6 +411,7 @@ class Core {
      * Return list of all operations available in the application
      * for a given object
      *
+     * @param string $object name of the object
      * @return array
      */
     public function getOperations($object = null) {
@@ -373,6 +461,9 @@ class Core {
 
     /* PROVIDERS */
 
+    /**
+     * Load providers registered by modules
+     */
     protected function loadProviders() {
         $nbProviders = 0;
         $this->log->debug("o Load Providers");
@@ -411,6 +502,17 @@ class Core {
         return $this->providers;
     }
 
+    /**
+     * Register a provider for a given feature to the application
+     *
+     * You may either directly specify the provider using the associated argument,
+     * or the module where the provider is defined if the provider has the same name
+     * than the default class provider for the feature (i.e LogProvider for log provider, etc...)
+     *
+     * @param string $feature name of the feature the provider will be registered for
+     * @param Module $module module that publishes the provider
+     * @param Provider instance of the provider to be registered
+     */
     protected function registerProvider($feature, $module, $provider = null) {
 
         if (!isset($this->providers[$feature])) {
@@ -437,6 +539,9 @@ class Core {
 
     // FORMATTERS
 
+    /**
+     * Load formatters registered by modules
+     */
     protected function loadFormatters() {
         $nbFormatters = 0;
         $this->log->info("o Load Formatters");
@@ -472,10 +577,19 @@ class Core {
 
     }
 
+    /**
+     * Return formatter for a given object and format, FALSE otherwise
+     *
+     * In order to find a formatter, the application calls the isFormatterFor() method
+     * for all registered formatter. The first matching formatter is returned.
+     *
+     * @param object $object object to render
+     * @param string $format format to use for rendering
+     * @return Formatter formatter registered for the object and format.
+     */
     public function getFormatter($object, $format) {
         foreach ($this->formatters as $formatter) {
             if ($formatter['instance'] === null) {
-                //require_once MODULE_PATH . '/' . $formatter['module'] . '/formatters/' . $formatter['name'] . '.inc';
                 $formatterNS = "\Daw\\Modules\\" . $formatter['module'] . "\\Formatters\\" . $formatter['name'];
                 $formatter['instance'] = new $formatterNS($this);
             }
@@ -488,6 +602,15 @@ class Core {
         return false;
     }
 
+    /**
+     * Render a given object based on a formatter, if one has been registered for this object type
+     * If no formatter is found, use the default formatter specified by the Service instance using getResponseFormat() method
+     *
+     * @param object $object object to render
+     * @param string $format format to use for rendering
+     * @param boolean $output shall the method print the result or just return it. By default set to FALSE.
+     * @return object the result of the rendering
+     */
     public function render($object, $format, $output = false) {
         $this->log->trace(" --- render(" . (is_object($object) ? get_class($object) : (is_array($object) ? 'array' : $object)) . ", $format) ");
         $formatter = $this->getFormatter($object, $format);
@@ -506,6 +629,9 @@ class Core {
         return $contents;
     }
 
+    /**
+     * Initialize the application
+     */
     protected function init() {
 
         $this->basePath = PROJECT_BASEPATH;
@@ -536,6 +662,10 @@ class Core {
      *
      * No authentication or access will be required in this context
      * for all calls performed till we exit the sudoed call
+     *
+     * @param string $name
+     * @param string $operation
+     * @param array $params
      */
     public function sudo($name, $operation, $params = array()) {
         static $sudo = 0;
@@ -552,11 +682,13 @@ class Core {
     }
 
     /**
-     * Call operation for one object
+     * Call operation for one object or a module global operation
      *
-     * @param string $object
-     * @param string $operation
-     * @param array $args
+     * @param string $name name of the object or the module
+     * @param string $operation name of the operation
+     * @param array $params
+     * @param boolean $system if this call is made by daw itself and not triggered by user
+     * @return mixed operation response
      */
     public function call($name, $operation, $params = array(), $system = false) {
 
@@ -711,8 +843,15 @@ class Core {
     const PATH_BASE = 'PATH_BASE';
     const PATH_FILES = 'PATH_FILES';
 
-    public function path($filename, $path = self::PATH_BASE) {
-        switch ($path) {
+    /**
+     * Return absolute path of a file, depending on its type
+     *
+     * @param string $filename relative path of the file
+     * @param string $type type of files
+     * @return string absolute path
+     */
+    public function path($filename, $type = self::PATH_BASE) {
+        switch ($type) {
             case self::PATH_FILES:
                 return FileUtil::concat($this->basePath, '/var/run', $filename);
                 break;

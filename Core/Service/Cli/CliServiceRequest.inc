@@ -13,12 +13,35 @@ namespace Daw\Core\Service;
 
 use \Daw\Core\Service\ServiceRequest;
 
+/**
+ * Service request default class for CLI service
+ *
+ * @package Daw
+ * @subpackage Service
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class CliServiceRequest extends ServiceRequest {
 
+    /**
+     * Return properties collected with request
+     * For API service, properties are filled with $_SERVER array
+     *
+     * @return array service properties
+     */
     public function getProperties() {
         return $_SERVER;
     }
 
+    /**
+     * Return list of arguments passed to the service and to be used by the module call
+     * For CLI service, following arguments are being provided:
+     *  - OBJECT name of the object requested
+     *  - OPERATION name of the operation requested
+     *  - PARAMS list of arguments collected from command line
+     *
+     * @return array
+     */
     public function getArgs() {
         $args = array();
         $nbArgs =  $_SERVER['argc'];
@@ -44,6 +67,15 @@ class CliServiceRequest extends ServiceRequest {
         return $args;
     }
 
+    /**
+     * Provides information related to the user authentication
+     *
+     * For CLI service, tokens are the following:
+     *  - username: extracted from $_SERVER['DAW_USERNAME']
+     *  - password: extracted from $_SERVER['DAW_PASSWORD']
+     *
+     * @return array
+     */
     public function getAuthenticationToken() {
         $token = array();
         if (isset($_SERVER['DAW_USERNAME'])) {
