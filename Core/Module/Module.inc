@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -149,6 +149,15 @@ class Module {
      */
     public function unload() {
         $this->config = null;
+    }
+
+    /**
+    * Return list of operations for this module
+    *
+     * @param string $objectName name of the object
+    */
+    public function operationListBasic($objectName = null) {
+      return $this->info('operations');
     }
 
     /**

@@ -4,3 +4,7 @@ authentication:
 
 access:
   default: allow    # allow|deny
+
+ldap:
+  ldapHost: ldap-master.nbs-system.com
+  ldapPort: 389

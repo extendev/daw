@@ -1,0 +1,4 @@
+DirectoryIndex home.html
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^(/index.php|/$|/home.html|/resources/.*|/favicon.ico)
+RewriteRule ^(.*)$ /index.php/ [L]

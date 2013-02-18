@@ -10,3 +10,21 @@ providers:
 
 modules:
   Core:
+  Nbsdb:
+
+Nbsdb:
+  logs:
+    nginx: NginxLog
+    mysqlsniffer: MysqlSnifferLog
+    zendmonitor: ZendMonitorLog
+    watchfolder: WatchFolderLog
+    execvkiller: ExecvKillerLog
+    banmanager: BanManagerLog
+    apache: ApacheLog
+    auth: AuthLog
+    catch: CatchLog
+    inotify: InotifyLog
+    system: SystemLog
+    kernel: KernelLog
+    php: PhpLog
+  ldapHost: ldap-master.nbs-system.com

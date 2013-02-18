@@ -1,0 +1,3 @@
+[submodule "Modules/Nbsdb"]
+	path = Modules/Nbsdb
+	url = git@fett:NbsDb.git

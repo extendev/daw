@@ -5,18 +5,10 @@
 # @author Axel Tessier <axel.tessier@extendev.net>
 # @version $Id: Daw 105 2003-08-22 01:20:24Z  $
 
-##
-# Return absolute path of current running script
-#
-function projectPath {
-        path=$(eval dirname $0)
-        dir=$(d=`dirname $path`; echo $path | grep '^/' || echo `pwd`/$path | sed -e s/\\/\\.\\//\\//g | sed -e s/\\/\\.$//g)
-        echo $dir
-        return 0
-}
-
 # Source project settings
-PROJECT_BASE= `projectPath`
+BIN_FULL_PATH=$(readlink -f $0)
+PROJECT_BASE=$(dirname $BIN_FULL_PATH | sed -e 's/\/bin//')
+
 
 # Launch CLI client
-php ${PROJECT_BASE}/service/cli/index.php "$@"
+php -d include_path=".:/usr/share/php:/usr/share/pear:${PROJECT_BASE}" ${PROJECT_BASE}/Service/cli/index.php "$@"

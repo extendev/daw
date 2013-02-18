@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Service;
+namespace Daw\Core\Service\Cli;
 
 use \Daw\Core\Service\ServiceRequest;
 
@@ -46,6 +46,7 @@ class CliServiceRequest extends ServiceRequest {
         $args = array();
         $nbArgs =  $_SERVER['argc'];
 
+    /*
         if ($nbArgs > 1) {
             $args['OBJECT'] = $_SERVER['argv'][1];
         }
@@ -63,6 +64,14 @@ class CliServiceRequest extends ServiceRequest {
                 }
             }
         }
+     */
+    if ($nbArgs > 2) {
+      $args[ 'request'] = $_SERVER['argv'][1].".".$_SERVER['argv'][2];
+    } elseif ($nbArgs > 1) {
+      $args[ 'request'] = $_SERVER['argv'][1];
+    } else {
+      $args[ 'request'] = '';
+    }
 
         return $args;
     }

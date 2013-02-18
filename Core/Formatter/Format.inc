@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -26,7 +26,7 @@ class Format extends Enum {
     /**
      * @var string[] enumeration constants
      */
-    protected final $constants = array(
+    protected $constants = array(
         'JSON', 'Yaml'
     );
 }

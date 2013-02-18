@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Object\Store;
+namespace Daw\Core\Object;
 
 /**
  * Application Object Store base class
@@ -22,7 +22,7 @@ namespace Daw\Core\Object\Store;
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
-abstract class ObjectStore {
+abstract class Store {
 
     /**
      * AutoCommit mode
@@ -34,6 +34,7 @@ abstract class ObjectStore {
      */
     protected $autoCommit = true;
 
+    protected $store = null;
 
     /**
      * Constructor
@@ -49,27 +50,26 @@ abstract class ObjectStore {
     }
 
     /**
-     * Search store using list of given filters
-     *
-     * @param object $filters key/value pair list where key is the name of the filter and value its value
-     * @return Object
-     */
-    public abstract function search($filters = null);
-
-    /**
-     * Return TRUE if an object exists in the store given some filters
-     *
-     * @param object $filters key/value pair list where key is the name of the filter and value its value
-     * @return boolean TRUE if object exists, FALSE otherwise
-     */
-    public abstract function exists($filters);
-
-    /**
-     * Get a reference of an object
+     * Search
      *
      * @param object $id
      * @return Object
      */
+    public abstract function search($params = null);
+
+    /**
+     * Check if an object exists
+     *
+     * @param unknown_type $object
+     */
+    public abstract function exists($object);
+
+    /**
+    * Get a reference of an object
+    *
+    * @param object $id
+    * @return Object
+    */
     public abstract function read($id);
 
     /**
@@ -86,10 +86,10 @@ abstract class ObjectStore {
     public abstract function update($object);
 
     /**
-     * Save the object to the store
-     *
-     * @param Object $object
-     */
+    * Save the object to the store
+    *
+    * @param Object $object
+    */
     public abstract function save($object);
 
     /**

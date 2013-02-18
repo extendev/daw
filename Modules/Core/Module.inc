@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -11,7 +11,7 @@
 
 namespace Daw\Modules\Core;
 
-use \Daw\Modules\Core\Business\UserStore;
+use \Daw\Modules\Core\Store\UserStore;
 
 /**
  * Daw Module: Core Application Module

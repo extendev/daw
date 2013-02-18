@@ -2,6 +2,8 @@
 
 namespace Daw\Modules\Core\Providers;
 
+//require_once 'Core/provider/CacheProvider.inc';
+
 /**
  * Cache provider using files
  *

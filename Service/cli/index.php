@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -23,9 +23,9 @@
 *
 * @var string
 */
-define('PROJECT_BASEPATH', realpath(__DIR__. '/../../../'));
+define('PROJECT_BASEPATH', realpath(__DIR__). '/../../');
 
-require_once 'Service/includes.inc';
+require_once 'Core/includes.inc';
 
 use Daw\Core\Service\CliService;
 

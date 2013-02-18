@@ -246,7 +246,7 @@ Daw user as implemented by Core module, identified by a username and password.
 
 ### Implementation
 
-Users are implemented by the `Daw\Modules\Core\Objects\User` class. Each instance is stored in a file located in *var/run/users.db*, managed by `Daw\Modules\Core\Business\UserStore` class, a FileStore instance. The data is stored in the file as JSON-encoded text.
+Users are implemented by the `Daw\Modules\Core\Objects\User` class. Each instance is stored in a file located in *var/run/users.db*, managed by `Daw\Modules\Core\Store\UserStore` class, a FileStore instance. The data is stored in the file as JSON-encoded text.
 
 *Example:*
 
@@ -261,7 +261,7 @@ Users are implemented by the `Daw\Modules\Core\Objects\User` class. Each instanc
 
 *Related files:*
 - Objects/User.inc
-- Business/UserStore.inc
+- Store/UserStore.inc
 
 
 

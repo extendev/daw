@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -15,11 +15,14 @@
 
 define('MODULE_PATH', realpath(PROJECT_BASEPATH . '/Modules'));
 define('PROVIDER_PATH', realpath(PROJECT_BASEPATH . '/Providers'));
+/* 
+  TO BE GRUIKED AGAIN ??
+define('FORMATERS_PATH', realpath(PROJECT_BASEPATH . '/Formaters'));
+define('PROVIDER_PATH', realpath(PROJECT_BASEPATH . '/Providers'));
+*/
 
 // Core includes
 require_once 'Core/Core.inc';
-require_once 'Core/Business/AutoLoader.inc';
 require_once 'Core/Exception/Exception.inc';
 
-// 3rd-Part vendor libraries
 require_once 'vendor/autoload.php';

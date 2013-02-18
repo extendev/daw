@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Modules\Core\Business;
+namespace Daw\Modules\Core\Store;
 
 /*
  * This file is part of Daw.
@@ -38,7 +38,7 @@ namespace Daw\Modules\Core\Business;
  */
 
 use \Daw\Core\Core;
-use \Daw\Core\Object\Store\FileStore;
+use \Daw\Modules\Core\Store\FileStore;
 use \Daw\Modules\Core\Objects\User;
 
 /**

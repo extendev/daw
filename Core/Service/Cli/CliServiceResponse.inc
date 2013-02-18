@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Service;
+namespace Daw\Core\Service\Cli;
 
 use \Daw\Core\Service\ServiceResponse;
 

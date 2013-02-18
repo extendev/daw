@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -25,15 +25,15 @@ class Event {
     /**
      * @var string $name name of the event
      */
-    public final $name;
+    public $name;
 
     /**
      * @var object $target object for which the target has been fired
      */
-    public final $target;
+    public $target;
 
     /**
      * @var array $params additional event information
      */
-    public final $params;
+    public $params;
 }
