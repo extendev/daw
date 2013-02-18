@@ -17,6 +17,46 @@ use \Daw\Core\Formatter\TextIndentFormatter;
 use \Daw\Core\Formatter\JsonFormatter;
 use \Daw\Core\Formatter\FormatterContext;
 
+ /**
+ * spl_autoload() suitable implementation for supporting class autoloading.
+ * Comply with PSR-0 implementation
+ *
+ * @link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+ * @param string $class the class to load
+ * @return string|false Class name on success; false on failure
+ */
+function coreAutoLoad($class) {
+  $classTokens = explode('\\', $class);
+  switch (array_shift($classTokens)) {
+    case 'Daw':
+      switch ($classTokens[0]) {
+        case 'Modules':
+          $classNS = join('/', array_slice($classTokens, 1));
+          require_once MODULE_PATH . '/' . $classNS . '.inc';
+          break;
+        default:
+          $classNS = join('/', $classTokens);
+          /*
+             echo "gonna require_once $classNS .inc\n";
+             echo "Before, get_included_files is : \n";
+             echo print_r( get_included_files());
+             echo "\n";
+           */
+          require_once $classNS . '.inc';
+          /*
+             echo "After, get_included_files is : \n";
+             echo print_r( get_included_files());
+             echo "\n";
+           */
+          break;
+      }
+      break;
+  }
+}
+
+// Class autoloader
+spl_autoload_register('\Daw\Core\coreAutoLoad');
+
 /**
  * Bootstrap:
  *  - intialize
@@ -114,6 +154,10 @@ class Core {
      */
     protected $formatters = array();
 
+    /**
+     * @var array $connectors list of connectors registered to the application
+     */
+    protected $connectors = array();
 
     /**
     * Set/Get singleton instance
@@ -294,7 +338,7 @@ class Core {
      */
     protected function loadModuleConfig($name) {
         $this->log->debug("    o Load Module Config");
-        $moduleConfFilePath = $this->basePath . '/Daw/conf/' . strtolower($name) . '.yml';
+        $moduleConfFilePath = $this->basePath . '/conf/' . $name . '.yml';
         if (file_exists($moduleConfFilePath)) {
             $this->log->debug("      - Using module configuration file: " . $moduleConfFilePath . "");
             $contents = file_get_contents($moduleConfFilePath);
@@ -304,7 +348,7 @@ class Core {
         }
 
         $moduleConfig = isset($this->config[$name]) ? $this->config[$name] : array();
-        $this->log->debug("      + Module config loaded: " . strlen(print_r($moduleConfig, true)) . " bytes.");
+        $this->log->debug("       Module config loaded: " . strlen(print_r($moduleConfig, true)) . " bytes.");
 
         return $moduleConfig;
     }
@@ -528,7 +572,7 @@ class Core {
             $this->register($provider, $feature);
         }
 
-        $featureConfFilePath = $this->basePath . '/conf/' . strtolower($feature) . '.yml';
+        $featureConfFilePath = $this->basePath . '/conf/' . $feature . '.yml';
         if (file_exists($featureConfFilePath)) {
             $this->log->debug("      - Using provider feature configuration file: " . $featureConfFilePath . "");
             $contents = file_get_contents($featureConfFilePath);
@@ -629,6 +673,126 @@ class Core {
         return $contents;
     }
 
+  // CONNECTORS
+
+  /**
+   * NBS Addition - to be filled by NBS
+   */
+  protected function loadConnectors() {
+    $nbConnectors = 0;
+    $this->log->info("o Load Connectors");
+    foreach ($this->connectors as $connectorName => $connector) {
+      if ($connector->info('connectors') !== false) {
+        if ($connector->info('connectors')) {
+          foreach ($connector->info('connectors') as $connector) {
+            $this->log->debug("  -> Connector " . $connectorName . " connector $connector loaded.");
+            $this->connectors["$connectorName.$connector"] = array(
+                'name' => $connector,
+                'connector' => $connectorName,
+                'instance' => null
+                );
+            $nbConnectors++;
+          }
+        }
+      }
+    }
+
+    $this->log->debug("  + Connectors loaded: " . $nbConnectors . "");
+    /*
+    // Load base connectors
+    $this->connectors["Json"] = array(
+    'name' => 'Json',
+    'connector' => null,
+    'instance' => new JsonConnector($this)
+    );
+    $this->connectors["TextIndent"] = array(
+    'name' => 'TextIndent',
+    'connector' => null,
+    'instance' => new TextIndentConnector($this)
+    );
+     */
+
+  }
+
+  /**
+   * NBS Addition - to be filled by NBS
+   */
+  public function getConnector($object, $format) {
+    foreach ($this->connectors as $connector) {
+      if ($connector['instance'] === null) {
+        //require_once MODULE_PATH . '/' . $connector['connector'] . '/connectors/' . $connector['name'] . '.inc';
+        $connectorNS = "\Daw\\Connectors\\" . $connector['connector'] . "\\Connectors\\" . $connector['name'];
+        $connector['instance'] = new $connectorNS($this);
+      }
+
+      if ($connector['instance']->isConnectorFor($object, $format)) {
+        return $connector['instance'];
+      }
+    }
+
+    return false;
+  }
+
+  // EXCEPTIONSS
+
+  /**
+   * NBS Addition - to be filled by NBS
+   */
+  protected function loadExceptions() {
+    $nbExceptions = 0;
+    $this->log->info("o Load Exceptions");
+    foreach ($this->exceptions as $exceptionName => $exception) {
+      if ($exception->info('exceptions') !== false) {
+        if ($exception->info('exceptions')) {
+          foreach ($exception->info('exceptions') as $exception) {
+            $this->log->debug("  -> Exception " . $exceptionName . " exception $exception loaded.");
+            $this->exceptions["$exceptionName.$exception"] = array(
+                'name' => $exception,
+                'exception' => $exceptionName,
+                'instance' => null
+                );
+            $nbExceptions++;
+          }
+        }
+      }
+    }
+
+    $this->log->debug("  + Exceptions loaded: " . $nbExceptions . "");
+
+    // Load base exceptions
+    $this->exceptions["Json"] = array(
+        'name' => 'Json',
+        'exception' => null,
+        'instance' => new JsonException($this)
+        );
+    $this->exceptions["TextIndent"] = array(
+        'name' => 'TextIndent',
+        'exception' => null,
+        'instance' => new TextIndentException($this)
+        );
+
+  }
+
+  /**
+   * NBS Addition - to be filled by NBS
+   */
+  public function getException($object, $format) {
+    foreach ($this->exceptions as $exception) {
+      if ($exception['instance'] === null) {
+        //require_once MODULE_PATH . '/' . $exception['exception'] . '/exceptions/' . $exception['name'] . '.inc';
+        $exceptionNS = "\Daw\\Exceptions\\" . $exception['exception'] . "\\Exceptions\\" . $exception['name'];
+        $exception['instance'] = new $exceptionNS($this);
+      }
+
+      if ($exception['instance']->isExceptionFor($object, $format)) {
+        return $exception['instance'];
+      }
+    }
+
+    return false;
+  }
+
+
     /**
      * Initialize the application
      */
@@ -655,6 +819,7 @@ class Core {
         $this->loadProviders();
         $this->loadObjects();
         $this->loadFormatters();
+        $this->loadConnectors();
     }
 
     /**
@@ -802,9 +967,33 @@ class Core {
 
         $args = $this->request->getArgs();
 
+        $object = '';
+        $operation = '';
+
+        foreach ( $this->modules as $_module) {
+          $_operationList = $_module->operationListBasic();
+          if ( array_key_exists( $args[ 'request'], $_operationList )) {
+            $object = isset($_operationList[ $args[ 'request']]['object']) ? $_operationList[ $args[ 'request']]['object'] : $this->config['defaultObject'];
+            $operation = isset( $_operationList[ $args[ 'request']]['operation']) ? $_operationList[ $args[ 'request']]['operation'] : $this->config['defaultOperation'];
+            break;
+          }
+        }
+
+        // in case we didn't find any corresponding object ..
+        if ( $object == '') {
+          $object = $this->config['defaultObject'];
+        }
+
+        // in case we didn't find any corresponding operation ..
+        if ( $operation == '') {
+          $operation = $this->config['defaultOperation'];
+        }
+
+
+        /*
         $object = isset($args['OBJECT']) && !empty($args['OBJECT']) ? $args['OBJECT'] : $this->config['defaultObject'];
         $operation = isset($args['OPERATION']) && !empty($args['OPERATION']) ? $args['OPERATION'] : $this->config['defaultOperation'];
-
+        */
 
         // Catch internal params
         $systemParams = array();
