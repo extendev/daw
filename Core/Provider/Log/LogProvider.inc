@@ -17,7 +17,7 @@ use \Daw\Core\Provider\Log\Level;
  * Log Provider base abstract class
  * Extends this class if you wish to implement your own log provider
  *
- * @package Daw
+ * @package Modules/Core
  * @subpackage Provider
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$

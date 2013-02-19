@@ -33,17 +33,20 @@ abstract class FileStore extends Store {
    */
   protected $store = null;
   /**
-   * @var string $class class of the object to manage in the store
+   * @var Object $instance an instance of the object to manage in the store
    */
-  protected $class = null;
+  protected $instance = null;
 
 
   /**
    * Constructor
+   *
+   * @param string $file file path where objects will be stored
+   * @param Object $instance an instance of the object to manage in the store
    */
-  protected function __construct($file, $class) {
+  protected function __construct($file, $instance) {
     $this->filepath = Core::instance()->path($file, Core::PATH_FILES);
-    $this->class = $class;
+    $this->instance = $instance;
     parent::__construct();
   }
 
@@ -80,17 +83,17 @@ abstract class FileStore extends Store {
   }
 
   /**
-   * Search
+   * Search objects and return those matching list of search params
    *
-   * @param object $id
-   * @return Object
+   * @param object $params
+   * @return array list of objects matching the search params
    */
   public function search($params = array()) {
     $criteria = array();
     if (is_array($params)) {
       $criteria = $params;
     } else {
-      $criteria[$this->class->primaryKey()] = $params;
+      $criteria[$this->instance->primaryKey()] = $params;
     }
 
     $list = array();
@@ -122,14 +125,15 @@ abstract class FileStore extends Store {
   /**
    * Return the index of an object in the store
    *
-   * @param mixed $params
+   * @param mixed $object the object to find
+   * @return int the index if found, -1 otherwise
    */
   protected function indexOf($object) {
     if (empty($this->store)) {
       return -1;
     }
 
-    $criteria = array($this->class->primaryKey() => $object->info($this->class->primaryKey()));
+    $criteria = array($this->instance->primaryKey() => $object->info($this->instance->primaryKey()));
     foreach ($this->store as $index => $record) {
       $found = true;
       foreach ($criteria as $key => $value) {
@@ -151,6 +155,7 @@ abstract class FileStore extends Store {
    * Check if an object exists
    *
    * @param mixed $params
+   * @return boolean
    */
   public function exists($params) {
     if (empty($this->store)) {
@@ -161,7 +166,7 @@ abstract class FileStore extends Store {
     if (is_array($params)) {
       $criteria = $params;
     } else {
-      $criteria[$this->class->primaryKey()] = $params;
+      $criteria[$this->instance->primaryKey()] = $params;
     }
 
     foreach ($this->store as $record) {
@@ -182,9 +187,9 @@ abstract class FileStore extends Store {
   }
 
   /**
-   * Get a reference of an object
+   * Get a reference of an object given filters
    *
-   * @param object $id
+   * @param array $params
    * @return Object
    */
   public function read($params) {
@@ -196,7 +201,7 @@ abstract class FileStore extends Store {
     if (is_array($params)) {
       $criteria = $params;
     } else {
-      $criteria[$this->class->primaryKey()] = $params;
+      $criteria[$this->instance->primaryKey()] = $params;
     }
 
     foreach ($this->store as $record) {
@@ -224,7 +229,7 @@ abstract class FileStore extends Store {
   public function create($object) {
     $index = $this->indexOf($object);
     if ($index === -1) {
-      $this->store[$object->info($this->class->primaryKey())] = $this->unmap($object);
+      $this->store[$object->info($this->instance->primaryKey())] = $this->unmap($object);
     } else {
       $this->store[$index] = $this->unmap($object);
     }
@@ -235,7 +240,8 @@ abstract class FileStore extends Store {
 
   /**
    * Update an object and store it in the store
-   * @param unknown_type $object
+   *
+   * @param Object $object
    */
   public function update($object) {
     $index = $this->indexOf($object);
@@ -259,9 +265,9 @@ abstract class FileStore extends Store {
   }
 
   /**
-   * Delete an object
+   * Delete an object from the store
    *
-   * @param unknown_type $object
+   * @param Object $object
    */
   public function delete($object) {
     $index = $this->indexOf($object);
@@ -281,18 +287,19 @@ abstract class FileStore extends Store {
     }
   }
 
-    /**
-     * Map string representation to Project instance
-     * @param array $data
-     * @return Project object instance
-     */
+  /**
+   * Map object string representation to instance of object
+   * @param array $data
+   * @return object object instance
+   */
   protected abstract function map($data);
 
-    /**
-     * Transforms a Project object to a serialized string representation
-     *
-     * @param Project $object
-     * @return string serialized version of the object
-     */
+  /**
+   * Transforms an object to a serialized string representation of the object
+   * that will then be stored in the file
+   *
+   * @param object $object
+   * @return string serialized version of the object
+   */
   protected abstract function unmap($object);
 }

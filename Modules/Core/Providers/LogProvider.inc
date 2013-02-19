@@ -1,24 +1,43 @@
 <?php
 
 /**
- * This file is part of the Daw package.
+ * This file is part of the Nbsdb package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
  *
  * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * file that was distributed with this module source code.
  */
 
 namespace Daw\Modules\Core\Providers;
 
+/**
+ * Log Provider basic implementation
+ * Use PHP's errorlog, syslog or files to store logs.
+ *
+ * @package Modules/Core
+ * @subpackage Providers
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id$
+ */
 class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
 
+    /**
+     * Constructor
+     *
+     * @param Core $core daw instance
+     * @param Module $module module owning the provider
+     */
     public function __construct($core, $module = null) {
         parent::__construct($core, $module);
         date_default_timezone_set("UTC");
     }
 
-    protected function getCallerClass() {
+    /**
+     * Extract from current stacktrace the source class 
+     * @return string class name
+     */
+    private function getCallerClass() {
         $stack = debug_backtrace();
 
         return $stack[3]['class'];
@@ -30,6 +49,8 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
      * If no levels could be found, the application will verify the default facility
      * The function may return more than one facilities or false if no facilities could be found
      *
+     * @param string $callerClass the object class from where the exception is generated
+     * @param int $level a \Daw\Core\Provider\Log\Level value
      * @return array
      */
     protected function getLogFacilities($callerClass, $level = null) {
@@ -64,6 +85,12 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
         return count($facilities) > 0 ? array_keys($facilities) : false;
     }
 
+    /**
+     * Return facility definition with the given name, or FALSE if not found
+     *
+     * @param string $name
+     * @return array the facility configuration as an array
+     */
     protected function getFacility($name) {
         $config = $this->core->config('log');
         if (isset($config['facilities'][$name])) {
@@ -73,6 +100,13 @@ class LogProvider extends \Daw\Core\Provider\Log\LogProvider {
         return false;
     }
 
+    /**
+     * Raise log message using specified leg level
+     *
+     * @param string $message associated message
+     * @param int $level log level as available in Level class
+     * @see \Daw\Core\Provider\Log\Level
+     */
     public function log($message, $level = \Daw\Core\Provider\Log\Level::INFO) {
         $callerClass = $this->getCallerClass();
         $facilities = $this->getLogFacilities($callerClass, $level);

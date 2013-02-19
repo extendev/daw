@@ -1,21 +1,35 @@
 <?php
 
+/**
+ * This file is part of the Daw package.
+ *
+ * (c) Axel Tessier <axel.tessier@extendev.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this module source code.
+ */
+
 namespace Daw\Modules\Core\Operations;
 
-/**
- * Operation: User Add
- *
- * @author Q.AT
- * @version $Id$
- */
 use \Daw\Core\Exception\OperationException;
 use \Daw\Core\Exception\OperationArgumentException;
 
+/**
+ * User Delete Operation
+ * Delete a user from existing list of application users
+ *
+ * @package Modules/Core
+ * @subpackage Operations
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
+ */
 class UserDelete extends \Daw\Core\Module\Operation {
 
     /**
-     * Operation execution
+     * Run the operation
      *
+     * @param $args arguments
+     * @return string response validating deletion of the site
      * @see Daw\Core\Module.Operation::run()
      */
     public function run($args = array()) {

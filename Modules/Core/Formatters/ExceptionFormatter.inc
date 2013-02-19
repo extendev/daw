@@ -14,20 +14,24 @@ namespace Daw\Modules\Core\Formatters;
 use \Daw\Core\Exception\Exception;
 
 /**
- * Daw - JSON Default Formatter
+ * Exception default formatter
+ * This formatter can be used to render any exception
  *
- * This formatter supports any type of objects
- *
- * @author Axel Tessoer / Extendev
- * @version $Id$
+ * @package Modules/Core
+ * @subpackage Formatters
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
 class ExceptionFormatter extends \Daw\Core\Formatter\Formatter {
 
     /**
-     * Return TRUE if formatter supports given object and possibly given format
+     * Return true if formatter supports given object and possibly given format
      *
-     * @param unknown_type $object
-     * @param unknown_type $format
+     * This formatter accepts any Exception object
+     *
+     * @param object $object object to render
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
+     * @return boolean
      */
     public function isFormatterFor($object, $format = null) {
         return $object instanceof Exception;
@@ -35,6 +39,10 @@ class ExceptionFormatter extends \Daw\Core\Formatter\Formatter {
 
     /**
      * Render object in JSON format
+     *
+     * @param object $object object to render
+     * @param Daw\Core\Formatter\Format $format format to be used for rendering
+     * @return string the JSON string
      */
     public function render($object, $format) {
         return $this->core->render($object->getData(), $format);

@@ -14,16 +14,27 @@ namespace Daw\Modules\Core\Providers;
 use \Daw\Core\Provider\Security\Exception\AuthenticationException;
 
 /**
- * Base security provider
- * Use users managed by core module
+ * Security provider implementation
  *
- * @author Q.AT
- *
+ * @package Modules/Core
+ * @subpackage Operation
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
 class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
 
+    /**
+     * @var User user currently logged in
+     */
     private $user = null;
 
+
+    /**
+     * Return the user performing the call, or NULL if authentication is 
+     * disabled or if the authentication failed
+     *
+     * @return User
+     */
     public function user() {
         return $this->user;
     }
