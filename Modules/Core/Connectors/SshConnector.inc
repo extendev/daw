@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Application Connector - SSH
+ * This file is part of the Daw package.
  *
- * @package Daw
- * @subpackage Connector
- * @author Axel Tessier <axel.tessier@extendev.net>
- * @version $Id$
+ * (c) Axel Tessier <axel.tessier@extendev.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Daw\Core\Connector\Ssh;

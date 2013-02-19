@@ -19,6 +19,5 @@ namespace Daw\Modules\Skeleton;
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$
  */
-
 class Module extends \Daw\Core\Module\Module {
 }

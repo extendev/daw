@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -11,22 +11,30 @@
 
 namespace Daw\Modules\Core\Store;
 
-
 use \Daw\Core\Core;
 use \Daw\Core\Object\Store;
 
 /**
  * Application Object Store - File
  *
- * @package Daw
- * @subpackage Object\Store
+ * @package Modules\Core
+ * @subpackage Store
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
 abstract class FileStore extends Store {
 
+  /**
+   * @var string $filepath path of the file where to store objects
+   */
   protected $filepath = null;
+  /**
+   * @var array store contents
+   */
   protected $store = null;
+  /**
+   * @var string $class class of the object to manage in the store
+   */
   protected $class = null;
 
 
@@ -273,6 +281,18 @@ abstract class FileStore extends Store {
     }
   }
 
+    /**
+     * Map string representation to Project instance
+     * @param array $data
+     * @return Project object instance
+     */
   protected abstract function map($data);
+
+    /**
+     * Transforms a Project object to a serialized string representation
+     *
+     * @param Project $object
+     * @return string serialized version of the object
+     */
   protected abstract function unmap($object);
 }

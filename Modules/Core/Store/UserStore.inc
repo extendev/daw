@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -11,44 +11,18 @@
 
 namespace Daw\Modules\Core\Store;
 
-/*
- * This file is part of Daw.
- *
- * Copyright (c) 2012 Axel Tessier
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @version $Id$
- */
-
 use \Daw\Core\Core;
 use \Daw\Modules\Core\Store\FileStore;
 use \Daw\Modules\Core\Objects\User;
 
 /**
- * Base class for object store
+ * Store for managing Daw application users
+ * This store is a FileStore using file users.db to store users
  *
- * A store is eligible to
- *
- * Enter description here ...
- * @author Q.AT
- *
+ * @package Modules\Core
+ * @subpackage Store
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
 class UserStore extends FileStore {
 
@@ -82,11 +56,22 @@ class UserStore extends FileStore {
         }
     }
 
-
+    /**
+     * Map string representation to User instance
+     *
+     * @param array $data
+     * @return User object instance
+     */
     public function map($data) {
         return new User($data);
     }
 
+    /**
+     * Transforms a User object to a serialized string representation
+     *
+     * @param User $object
+     * @return string serialized version of the object
+     */
     public function unmap($user) {
         return $user->info();
     }

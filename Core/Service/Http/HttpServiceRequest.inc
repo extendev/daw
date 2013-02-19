@@ -58,6 +58,7 @@ class HttpServiceRequest extends ServiceRequest {
             $args['OPERATION'] = $requestTokens[2];
         }
 */
+
     if ($cntTokens > 2) {
       $args[ 'request'] = $requestTokens[1].".".$requestTokens[2];
     } elseif ($cntTokens > 1) {

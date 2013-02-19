@@ -10,7 +10,7 @@ version: 1.0.0
 date: 23 May 2012
 
 authors:
-    Axel Tessier: core developer 
+    Axel Tessier: core developer
 
 provides:
   - log
@@ -20,14 +20,14 @@ provides:
 objects:
   Module:
   Object:
-#  user:
-#    description: "User of the application"
-#    properties:
-#        name: "User name"
-#        username: "Account name"
-#        password: "Account password"
-#        email: "Email address"
-#        active: "Status"
+  User:
+    description: "User of the application"
+    properties:
+        name: "User name"
+        username: "Account name"
+        password: "Account password"
+        email: "Email address"
+        active: "Status"
   Operation:
   Provider:
 
@@ -73,7 +73,7 @@ operations:
         description: "Provide PHP information"
     provider.list:
         object: Provider
-        operation: List        
+        operation: List
     module.list:
         object: Module
         operation: List
@@ -102,9 +102,9 @@ operations:
                 description: "Name of the object to gather information"
                 format: string
                 validation: required
-    object.optionlist:
+    object.optionList:
         object: Object
-        operation: optionList
+        operation: OptionList
         description: "Get option list for this object using properties as key/value"
         args:
             object:
@@ -137,95 +137,95 @@ operations:
                 description: "Name of the operation"
                 format: string
                 validation: required
-#    # User Management
-#    user.list:
-#        description: "Get list of users"
-#        object: user
-#        operation: List
-#    user.create:
-#        description: "Add new user"
-#        object: user
-#        operation: create
-#        usage: 'object=<name> operation=<name> module=<module>'
-#        args:
-#            name:
-#                description: "User name"
-#                format: string
-#                validation: required
-#            username:
-#                description: "Account name"
-#                format: string
-#                validation: 
-#                  - required
-#                  - unique
-#            password:
-#                description: "Account password"
-#                format: string
-#                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."                
-#                validation: 
-#            email:
-#                description: "Email address"
-#                format: string
-#                validation: 
-#                  - required 
-#            active:
-#                description: "Status"
-#                format: options
-#                options:
-#                    true: "Active"
-#                    false: "Inactive"
-#    user.update:
-#        description: "Update a user"
-#        object: user
-#        operation: update
-#        usage: 'user=<username> [username=<username> name=<name> password=<password> email=<email>]'
-#        args:
-#            user:
-#                description: "Username of the account to update"
-#                format: string
-#                validation: required
-#            username:
-#                description: "New username to be set"
-#                format: string
-#            name:
-#                description: "New account name to be set"
-#                format: string
-#            password:
-#                description: "New account password to be set"
-#                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."
-#                format: string
-#            email:
-#                description: "New email address to be set"
-#                format: string
-#                validation: email
-#    user.deactivate:
-#        description: "Disable a user - user will not be able to authenticate till enabled back"
-#        object: user
-#        operation: deactivate
-#        usage: 'username=<username>'
-#        args:
-#            username:
-#                description: "Account name"
-#                format: string
-#                validation: required
-#    user.activate:
-#        description: "Enable a user - user will be able to authenticate"
-#        object: user
-#        operation: activate
-#        usage: 'username=<username>'
-#        args:
-#            username:
-#                description: "Account name"
-#                format: string
-#                validation: required
-#    user.delete:
-#        description: "Delete a user"
-#        object: user
-#        operation: delete
-#        usage: 'username=<username>'
-#        args:
-#            username:
-#                description: "Account name"
-#                format: string
-#                validation: required
+    # User Management
+    user.list:
+        description: "Get list of users"
+        object: User
+        operation: List
+    user.create:
+        description: "Add new user"
+        object: User
+        operation: Create
+        usage: 'object=<name> operation=<name> module=<module>'
+        args:
+            name:
+                description: "User name"
+                format: string
+                validation: required
+            username:
+                description: "Account name"
+                format: string
+                validation:
+                  - required
+                  - unique
+            password:
+                description: "Account password"
+                format: string
+                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."
+                validation:
+            email:
+                description: "Email address"
+                format: string
+                validation:
+                  - required
+            active:
+                description: "Status"
+                format: options
+                options:
+                    true: "Active"
+                    false: "Inactive"
+    user.update:
+        description: "Update a user"
+        object: User
+        operation: Update
+        usage: 'user=<username> [username=<username> name=<name> password=<password> email=<email>]'
+        args:
+            user:
+                description: "Username of the account to update"
+                format: string
+                validation: required
+            username:
+                description: "New username to be set"
+                format: string
+            name:
+                description: "New account name to be set"
+                format: string
+            password:
+                description: "New account password to be set"
+                hint: "To ensure strong password, ensure to include at least digits, special characters and mix cases."
+                format: string
+            email:
+                description: "New email address to be set"
+                format: string
+                validation: email
+    user.deactivate:
+        description: "Disable a user - user will not be able to authenticate till enabled back"
+        object: User
+        operation: Deactivate
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
+    user.activate:
+        description: "Enable a user - user will be able to authenticate"
+        object: User
+        operation: Activate
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
+    user.delete:
+        description: "Delete a user"
+        object: User
+        operation: Delete
+        usage: 'username=<username>'
+        args:
+            username:
+                description: "Account name"
+                format: string
+                validation: required
 

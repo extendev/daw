@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -19,14 +19,18 @@ use \Daw\Modules\Core\Store\UserStore;
  * This module provides the basic features of the Daw application
  * like information collection on modules, objects, operations, ...
  *
- * @author Q.AT
+ * @package Modules
+ * @subpackage Core
+ * @author Axel Tessier <axel.tessier@extendev.net>
+ * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */
 class Module extends \Daw\Core\Module\Module {
 
     /**
-     * Return store
+     * Return store for a given object
      *
-     * @param ObjectStore $name
+     * @param string $name object name
+     * @return ObjectStore the store if found, NULL otherwise
      */
     public function store($name) {
         switch ($name) {
@@ -34,6 +38,8 @@ class Module extends \Daw\Core\Module\Module {
                 return UserStore::instance();
                 break;
         }
+
+        return null;
     }
 
 }

@@ -50,12 +50,22 @@ class ApiServiceRequest extends ServiceRequest {
         $requestTokens = explode('/', $request);
         $cntTokens = count($requestTokens);
 
+/*
         if ($cntTokens >= 2) {
             $args['OBJECT'] = $requestTokens[1];
         }
         if ($cntTokens >= 3) {
             $args['OPERATION'] = $requestTokens[2];
         }
+*/
+
+    if ($cntTokens > 2) {
+      $args[ 'request'] = $requestTokens[1].".".$requestTokens[2];
+    } elseif ($cntTokens > 1) {
+      $args[ 'request'] = $requestTokens[1];
+    } else {
+      $args[ 'request'] = '';
+    }
 
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
