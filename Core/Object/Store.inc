@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Daw package.
  *
  * (c) Axel Tessier <axel.tessier@extendev.net>
@@ -34,7 +34,11 @@ abstract class Store {
      */
     protected $autoCommit = true;
 
+    /**
+     * @var Store contents
+     */
     protected $store = null;
+
 
     /**
      * Constructor
@@ -49,12 +53,12 @@ abstract class Store {
     protected function init() {
     }
 
-    /**
-     * Search
-     *
-     * @param object $id
-     * @return Object
-     */
+  /**
+   * Search objects and return those matching list of search params
+   *
+   * @param object $params
+   * @return array list of objects matching the search params
+   */
     public abstract function search($params = null);
 
     /**

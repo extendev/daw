@@ -2,7 +2,8 @@
 <phpdoc>
     <title>Daw - Unified Data Management and Access framework</title>
     <files>
-      <directory>core</directory>
+      <directory>Core</directory>
+      <directory>Modules/Core</directory>
     </files>
     <parser>
         <target>docs/reference</target>
