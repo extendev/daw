@@ -26,7 +26,7 @@ namespace Daw\Core\Connector\Ssh;
  * This connectors requires the libssh2 to be enabled in PHP. See
  * http://www.php.net/manual/intro.ssh2.php for more details
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Connector
  * @link http://www.php.net/manual/intro.ssh2.php
  * @author Axel Tessier <axel.tessier@extendev.net>

@@ -15,7 +15,7 @@ namespace Daw\Modules\Core\Formatters;
  * Operation default formatter
  * This formatter can be used to render any Operation object
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Formatters
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

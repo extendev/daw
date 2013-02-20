@@ -15,7 +15,7 @@ namespace Daw\Modules\Core\Providers;
  * Log Provider basic implementation
  * Use PHP's errorlog, syslog or files to store logs.
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Providers
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$

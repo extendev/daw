@@ -17,7 +17,7 @@ use \Daw\Core\Exception\Exception;
  * Module Info Operation
  * Return Module's module.info file contents
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Operations
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

@@ -14,8 +14,8 @@ namespace Daw\Modules\Core\Objects;
 /**
  * User object class
  *
- * @package Modules/Core
- * @subpackage Store
+ * @package Modules\Core
+ * @subpackage Objects
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$
  */

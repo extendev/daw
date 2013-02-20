@@ -19,7 +19,7 @@ use \Daw\Modules\Core\Store\UserStore;
  * This module provides the basic features of the Daw application
  * like information collection on modules, objects, operations, ...
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
  */

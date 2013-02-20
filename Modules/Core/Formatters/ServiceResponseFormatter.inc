@@ -23,7 +23,7 @@ use \Daw\Core\Service\ServiceResponse;
  *   - message: potential message associated to a failure case or a success
  *   - data: any additional contents provided in the response
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Formatters
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

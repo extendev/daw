@@ -15,7 +15,7 @@ namespace Daw\Modules\Core\Providers;
  * Cache Provider basic implementation
  * Use simple file to store cached data
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Providers
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$

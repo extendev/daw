@@ -16,7 +16,7 @@ use \Daw\Core\Provider\Security\Exception\AuthenticationException;
 /**
  * Security provider implementation
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Operation
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

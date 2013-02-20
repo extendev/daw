@@ -17,7 +17,7 @@ use \Daw\Modules\Core\Objects\User;
  * User List Operation
  * Return list of users existing in the application
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Operations
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

@@ -15,7 +15,7 @@ namespace Daw\Modules\Core\Operations;
  * Version operation
  * Return the current version of the Daw application
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Operations
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $

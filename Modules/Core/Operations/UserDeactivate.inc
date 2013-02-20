@@ -19,7 +19,7 @@ use \Daw\Core\Exception\OperationArgumentException;
  * Deactivate a user - this latter will not be able to login anymore
  * if authentication has been enabled on the security provider
  *
- * @package Modules/Core
+ * @package Modules\Core
  * @subpackage Operations
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id: Event.inc 112 2003-08-22 06:22:40Z  $
