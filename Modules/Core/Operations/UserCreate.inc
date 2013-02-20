@@ -39,7 +39,7 @@ class UserCreate extends \Daw\Core\Module\Operation {
         $user = new User();
         $user->name = $args['name'];
         $user->username = $args['username'];
-        $user->password = $args['password'];
+        $user->password = $this->module->cryptPassword($args['password']);
         $user->email = $args['email'];
         $user->active = $args['active'] === 'true';
         $store->create($user);

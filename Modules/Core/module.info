@@ -25,7 +25,7 @@ objects:
     properties:
         name: "User name"
         username: "Account name"
-        password: "Account password"
+        password: "Account password MD5 hash"
         email: "Email address"
         active: "Status"
   Operation:
@@ -39,60 +39,59 @@ formatters:
     - OperationFormatter
 
 operations:
-    help:
+    Help:
         object: Core
         operation: Help
         description: "Print application global help"
-    core.help:
+    Core.Help:
         object: Core
         operation: Help
         description: "Print application global help"
-    version:
+    Version:
         object: Core
         operation: Version
         description: "Get application version"
-    core.version:
+    Core.Version:
         object: Core
         operation: Version
         description: "Get application version"
-    info:
+    Info:
         object: Core
         operation: Info
         description: "Provide application information"
-    core.info:
+    Core.Info:
         object: Core
         operation: Info
         description: "Provide application information"
-    phpinfo:
+    PhpInfo:
         object: Core
         operation: PhpInfo
         description: "Provide PHP information"
-    core.phpinfo:
+    Core.PhpInfo:
         object: Core
         operation: PhpInfo
         description: "Provide PHP information"
-    provider.list:
+    Provider.List:
         object: Provider
         operation: List
-    module.list:
+    Module.List:
         object: Module
         operation: List
         description: "List all modules installed on the application"
-    module.info:
+    Module.Info:
         object: Module
         operation: Info
         description: "Get information on a module installed on the application"
-        usage: "name=<module>"
         args:
             name:
                 description: "Name of the module to gather information"
                 format: string
                 validation: required
-    object.list:
+    Object.List:
         object: Object
         operation: List
         description: "List all objects available on the application"
-    object.info:
+    Object.Info:
         object: Object
         operation: Info
         description: "Get information on an object available on the application"
@@ -102,7 +101,7 @@ operations:
                 description: "Name of the object to gather information"
                 format: string
                 validation: required
-    object.optionList:
+    Object.OptionList:
         object: Object
         operation: OptionList
         description: "Get option list for this object using properties as key/value"
@@ -119,11 +118,11 @@ operations:
                 description: "Property used as value for the option list"
                 format: string
                 validation: required
-    operation.list:
+    Operation.List:
         object: Operation
         operation: List
         description: "List all operations available on the application"
-    operation.info:
+    Operation.Info:
         object: Operation
         operation: Info
         description: "Get information of an operation"
@@ -138,11 +137,11 @@ operations:
                 format: string
                 validation: required
     # User Management
-    user.list:
+    User.List:
         description: "Get list of users"
         object: User
         operation: List
-    user.create:
+    User.Create:
         description: "Add new user"
         object: User
         operation: Create
@@ -155,9 +154,7 @@ operations:
             username:
                 description: "Account name"
                 format: string
-                validation:
-                  - required
-                  - unique
+                validation: required
             password:
                 description: "Account password"
                 format: string
@@ -174,7 +171,7 @@ operations:
                 options:
                     true: "Active"
                     false: "Inactive"
-    user.update:
+    User.Update:
         description: "Update a user"
         object: User
         operation: Update
@@ -198,7 +195,7 @@ operations:
                 description: "New email address to be set"
                 format: string
                 validation: email
-    user.deactivate:
+    User.Deactivate:
         description: "Disable a user - user will not be able to authenticate till enabled back"
         object: User
         operation: Deactivate
@@ -208,7 +205,7 @@ operations:
                 description: "Account name"
                 format: string
                 validation: required
-    user.activate:
+    User.Activate:
         description: "Enable a user - user will be able to authenticate"
         object: User
         operation: Activate
@@ -218,7 +215,7 @@ operations:
                 description: "Account name"
                 format: string
                 validation: required
-    user.delete:
+    User.Delete:
         description: "Delete a user"
         object: User
         operation: Delete

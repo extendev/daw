@@ -274,7 +274,7 @@ abstract class Operation {
      *
      * @return array arguments
      */
-    protected function getArgs() {
+    public function getArgs() {
         return $this->args;
     }
 

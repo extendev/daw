@@ -264,6 +264,15 @@ class Module {
     public function isHandlerFor($object, $operationName) {
         return true;
     }
+
+    /**
+     * Crypt password 
+     * @param string $text password in clear text
+     * @return string encrypted password
+     */
+    public function cryptPassword($text) {
+        return md5($this->config('passwordSalt') . $text);
+    }
 }
 
 

@@ -53,6 +53,15 @@ class CliServiceRequest extends ServiceRequest {
         if ($nbArgs > 2) {
             $args['OPERATION'] = $_SERVER['argv'][2];
         }
+     */
+
+    if ($nbArgs > 2) {
+      $args[ 'request'] = $_SERVER['argv'][1].".".$_SERVER['argv'][2];
+    } elseif ($nbArgs > 1) {
+      $args[ 'request'] = $_SERVER['argv'][1];
+    } else {
+      $args[ 'request'] = '';
+    }
 
         $args['PARAMS'] = array();
         if ($nbArgs > 3) {
@@ -64,15 +73,7 @@ class CliServiceRequest extends ServiceRequest {
                 }
             }
         }
-     */
-    if ($nbArgs > 2) {
-      $args[ 'request'] = $_SERVER['argv'][1].".".$_SERVER['argv'][2];
-    } elseif ($nbArgs > 1) {
-      $args[ 'request'] = $_SERVER['argv'][1];
-    } else {
-      $args[ 'request'] = '';
-    }
-
+        
         return $args;
     }
 

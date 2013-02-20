@@ -59,10 +59,14 @@ class HttpServiceRequest extends ServiceRequest {
         }
 */
 
-    if ($cntTokens > 2) {
-      $args[ 'request'] = $requestTokens[1].".".$requestTokens[2];
+    if ($cntTokens >= 2) {
+        if (strlen(trim($requestTokens[2])) > 0) {
+            $args[ 'request'] = $requestTokens[1].".".$requestTokens[2];
+        } else {
+            $args[ 'request'] = $requestTokens[1];            
+        }
     } elseif ($cntTokens > 1) {
-      $args[ 'request'] = $requestTokens[1];
+        $args[ 'request'] = $requestTokens[1];
     } else {
       $args[ 'request'] = '';
     }

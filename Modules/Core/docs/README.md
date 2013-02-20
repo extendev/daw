@@ -239,9 +239,11 @@ Daw user as implemented by Core module, identified by a username and password.
     id:             User ID. Will be unique across all users.
     name:           User fullname
     username:       User login. Will be unique across all users.
-    password:       User password. Stored in clear text.
+    password:       User password MD5 hash.
     email:          Email address of the user
     active:         Status - TRUE (active) or FALSE (inactive)
+
+User passwords are stored as MD5 hash. A salt is used and provided by the module configuration file using *passworSalt* setting.
 
 
 ### Implementation
@@ -254,7 +256,7 @@ Users are implemented by the `Daw\Modules\Core\Objects\User` class. Each instanc
           id: 'USER-001',
           name: 'User #1',
           username: 'user01',
-          password: 'password in clear text',
+          password: 'password MD5 hash',
           active: true,
           email: 'joinh@doe.com'
       }

@@ -47,7 +47,7 @@ class UserUpdate extends \Daw\Core\Module\Operation {
             $user->name = $args['name'];
         }
         if (isset($args['password'])) {
-            $user->password = $args['password'];
+            $user->password = $this->module->cryptPassword($args['password']);
         }
         if (isset($args['email'])) {
             $user->email = $args['email'];

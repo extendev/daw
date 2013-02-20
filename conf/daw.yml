@@ -10,7 +10,9 @@ providers:
 
 modules:
   Core:
-  Nbsdb:
+
+Core:
+  passwordSalt: fdnE^$ç3jkl72
 
 Nbsdb:
   logs:

@@ -73,6 +73,6 @@ class UserStore extends FileStore {
      * @return string serialized version of the object
      */
     public function unmap($object) {
-        return $user->info();
+        return $object->info();
     }
 }

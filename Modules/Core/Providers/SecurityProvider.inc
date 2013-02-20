@@ -51,6 +51,7 @@ class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
 
         // Authenticate user only if authentication is enabled
         $config = $this->core->config('security');
+
         if (!isset($config['authentication'])
             || !isset($config['authentication']['enable'])
             || $config['authentication']['enable'] === true) {
@@ -63,7 +64,7 @@ class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
             if ($username) {
 
                 // Verify that user exist
-                $userList = $this->core->sudo('user', 'list');
+                $userList = $this->core->sudo('User', 'List');
                 if (!isset($userList[$username])) {
                     throw new AuthenticationException('User does not exist', 401);
                 }
@@ -78,7 +79,7 @@ class SecurityProvider extends \Daw\Core\Provider\Security\SecurityProvider {
                 $user = $userList[$username];
 
                 // And that password matches
-                if ($user['password'] != $password) {
+                if ($user['password'] != $this->module->cryptPassword($password)) {
                     throw new AuthenticationException('Password does not match', 401);
                 }
             }
