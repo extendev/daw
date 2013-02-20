@@ -93,17 +93,17 @@
 					break;
 				case 'menu-objects':
                     sideTitle = 'Objects';
-					sideCall = '/object/list';
+					sideCall = '/Object/List';
 					contentsCall = '/resources/html/homeObjects.html';
 					break;
 				case 'menu-modules':
                     sideTitle = 'Modules';
-					sideCall = '/module/list';
+					sideCall = '/Module/List';
 					contentsCall = '/resources/html/homeModules.html';
 					break;
                 case 'menu-operations':
                     sideTitle = 'Operations';
-                    sideCall = '/operation/list';
+                    sideCall = '/Operation/List';
                     contentsCall = '/resources/html/homeOperations.html';
                     break;
 			}
@@ -136,7 +136,7 @@
           })
         })
 
-        jQuery.ajax('/Core/version', {
+        jQuery.ajax('/Version', {
             complete: function(data, status, xhr) {
                 $('#version')[0].innerHTML = data.responseText;
             }
@@ -167,7 +167,7 @@
 
     var showOperations = function() {
         var sideTitle = 'Operations';
-        var sideCall = '/operation/list';
+        var sideCall = '/Operation/List';
         var contentsTitle = 'Operations Summary';
         var contentsCall = '/resources/html/homeOperations.html';
 
@@ -187,7 +187,7 @@
 
     var showConfig = function() {
         var contentsTitle = 'Application Information';
-        var contentsCall = '/core/info';
+        var contentsCall = '/Core/Info';
 
         $('#sidebar').hide();
         $('#contents').addClass('single');
@@ -384,7 +384,7 @@
             } else {
                 // Get list of options from object key/value pair
                 var tokens = argInfo['options'].split(':');
-                var call = '/object/optionList/?object=' + tokens[0] + '&key=' + tokens[1] + '&value=' + tokens[2];
+                var call = '/Object/OptionList/?object=' + tokens[0] + '&key=' + tokens[1] + '&value=' + tokens[2];
                 jQuery.ajax(call, {
                     complete: function(data, status, xhr) {
                         eval("var options = " + data.responseText);
@@ -440,7 +440,7 @@
     }
 
     var objectInfo = function(objectName) {
-        var call = '/object/info/?_format=TextIndent&name=' + objectName;
+        var call = '/Object/Info/?_format=TextIndent&name=' + objectName;
         jQuery.ajax(call, {
             complete: function(data, status, xhr) {
                 display(call, '#contents', 'Object info: ' + objectName, data.responseText, true);
@@ -449,7 +449,7 @@
     }
 
     var moduleInfo = function(module) {
-        var call = '/module/info/?_format=TextIndent&name=' + module;
+        var call = '/Module/Info/?_format=TextIndent&name=' + module;
         jQuery.ajax(call, {
             complete: function(data, status, xhr) {
                 display(call, '#contents', 'Module info: ' + module, data.responseText, true);
@@ -458,7 +458,7 @@
     }
 
     var showDoc = function(title, doc) {
-        var call = '/doc/get/?_format=TextIndent&name=' + doc;
+        var call = '/Doc/Get/?_format=TextIndent&name=' + doc;
         jQuery.ajax(call, {
             complete: function(data, status, xhr) {
             	$('#contents')[0].innerHTML = '<h3>' + title + '</h3>' + nl2br(data.responseText) + '';
@@ -512,7 +512,7 @@
                 };
                 contents += '</ul>';
                 break;
-            case '/object/list':
+            case '/Object/List':
                 eval("var objects = " + data);
                 contents += '<ul>';
                 for (var name in objects) {
@@ -530,7 +530,7 @@
                 contents += '</ul>';
 
                 break;
-            case '/module/list':
+            case '/Module/List':
                 eval("modules = " + data);
                 contents += '<ul>';
                 for (var name in modules) {
@@ -548,7 +548,7 @@
                 };
                 contents += '</ul>';
                 break;
-            case '/operation/list':
+            case '/Operation/List':
                 eval("operations = " + data);
                 contents += '<ul>';
                 for (var label in operations) {
