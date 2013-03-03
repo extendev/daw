@@ -261,9 +261,8 @@ class Core {
      */
     protected function loadConfig() {
         $this->log->debug("o Load Config");
-        $contents = file_get_contents($this->basePath . '/conf/Daw.yml');
+        $contents = file_get_contents($this->basePath . '/conf/daw.yml');
         $this->config = $this->yaml->parse($contents);
-        //print_r($this->config);
         $this->log->debug("  + Config loaded: " . strlen($contents) . " bytes.");
     }
 
@@ -676,7 +675,7 @@ class Core {
   // CONNECTORS
 
   /**
-   * NBS Addition - to be filled by NBS
+   * Initialize connectors published by modules
    */
   protected function loadConnectors() {
     $nbConnectors = 0;
@@ -715,7 +714,11 @@ class Core {
   }
 
   /**
-   * NBS Addition - to be filled by NBS
+   * Return instance of a connector for requested object and format
+   *
+     * @param object $object
+     * @param string $format
+     * @return object connector instance
    */
   public function getConnector($object, $format) {
     foreach ($this->connectors as $connector) {
@@ -733,10 +736,10 @@ class Core {
     return false;
   }
 
-  // EXCEPTIONSS
+  // EXCEPTIONS
 
   /**
-   * NBS Addition - to be filled by NBS
+   * Load exceptions published by modules
    */
   protected function loadExceptions() {
     $nbExceptions = 0;
@@ -773,9 +776,13 @@ class Core {
 
   }
 
-  /**
-   * NBS Addition - to be filled by NBS
-   */
+    /**
+     * Return instance of the requested exception
+     *
+     * @param object $object
+     * @param string $format
+     * @return Exception
+     */
   public function getException($object, $format) {
     foreach ($this->exceptions as $exception) {
       if ($exception['instance'] === null) {
@@ -972,7 +979,8 @@ class Core {
 
         foreach ( $this->modules as $_module) {
           $_operationList = $_module->operationListBasic();
-          if ( array_key_exists( $args[ 'request'], $_operationList )) {
+
+          if (count($_operationList) > 0 && array_key_exists( $args[ 'request'], $_operationList )) {
             $object = isset($_operationList[ $args[ 'request']]['object']) ? $_operationList[ $args[ 'request']]['object'] : $this->config['defaultObject'];
             $operation = isset( $_operationList[ $args[ 'request']]['operation']) ? $_operationList[ $args[ 'request']]['operation'] : $this->config['defaultOperation'];
             break;
