@@ -70,6 +70,11 @@ class UpdateList {
      * @return mixed[] the resulting list
      */
     public function update($list) {
+
+        if (count($this->set) === 0 && count($this->added) === 0 && count($this->removed) === 0) {
+            return $this->set;
+        }
+
         if ($this->set) {
             $list = $this->set;
         }
