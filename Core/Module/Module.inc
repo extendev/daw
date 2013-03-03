@@ -152,12 +152,18 @@ class Module {
     }
 
     /**
-    * Return list of operations for this module
-    *
+     * Return list of operations for this module
+     *
      * @param string $objectName name of the object
-    */
+     * @return array of operations
+     */
     public function operationListBasic($objectName = null) {
-      return $this->info('operations');
+        $operationList = $this->info('operations');
+        if ($operationList === false) {
+            return array();
+        }
+
+      return $operationList;
     }
 
     /**
@@ -169,7 +175,13 @@ class Module {
      */
     public function operationList($objectName = null) {
         $operationList = array();
-        foreach ($this->info('operations') as $operationName => $operationInfo) {
+
+        $operations = $this->info('operations');
+        if ($operations === false) {
+            return array();
+        }
+
+        foreach ($operations as $operationName => $operationInfo) {
             $operationList[] = new \Daw\Core\Object\Operation($operationName, $operationInfo);
         }
 
@@ -266,7 +278,7 @@ class Module {
     }
 
     /**
-     * Crypt password 
+     * Crypt password
      * @param string $text password in clear text
      * @return string encrypted password
      */
