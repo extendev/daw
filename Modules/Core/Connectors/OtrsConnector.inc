@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Connector\Otrs;
+namespace Daw\Modules\Core\Connectors;
+
+use \Daw\Core\Connector\Connector;
+
 
 /**
  * Application Connector - OTRS
@@ -19,13 +22,13 @@ namespace Daw\Core\Connector\Otrs;
  * This connectors requires the libssh2 to be enabled in PHP. See
  * http://www.php.net/manual/intro.ssh2.php for more details
  *
- * @package Modules\Core
- * @subpackage Connector
+ * @package Core
+ * @subpackage Connectors
  * @link http://www.php.net/manual/intro.ssh2.php
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$
  */
-class OtrsConnector implements Daw\Core\Connector\Connector {
+class OtrsConnector implements Connector {
 
     /**
      * Options to connect to the OTRS service
@@ -45,7 +48,7 @@ class OtrsConnector implements Daw\Core\Connector\Connector {
      *
      * @param array[string => string] $options default options to use
      */
-    public function __construct($options) {
+    public function __construct($options = array()) {
         $this->options = $options;
     }
 
@@ -104,6 +107,14 @@ class OtrsConnector implements Daw\Core\Connector\Connector {
         $result = $client->__soapCall("Dispatch", $callParams);
 
         return $result;
+    }
+
+    public function Authenticate($login, $password) {
+        return $this->call(array(
+            "AuthObject", "Auth",
+            "User", $login,
+            "Pw", $password
+        ));
     }
 
     /**

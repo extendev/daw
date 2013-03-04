@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Daw\Core\Connector\Ssh;
+namespace Daw\Modules\Core\Connectors;
+
+use \Daw\Core\Connector\Connector;
 
 /**
  * SSH Connector Class
@@ -26,13 +28,13 @@ namespace Daw\Core\Connector\Ssh;
  * This connectors requires the libssh2 to be enabled in PHP. See
  * http://www.php.net/manual/intro.ssh2.php for more details
  *
- * @package Modules\Core
- * @subpackage Connector
+ * @package Core
+ * @subpackage Connectors
  * @link http://www.php.net/manual/intro.ssh2.php
  * @author Axel Tessier <axel.tessier@extendev.net>
  * @version $Id$
  */
-class SshConnector implements Daw\Core\Connector\Connector {
+class SshConnector implements Connector {
 
     /**
      * Options to connect to the SSH server
