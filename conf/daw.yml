@@ -10,6 +10,7 @@ providers:
 
 modules:
   Core:
+  Nbsdb:
 
 Core:
   passwordSalt: fdnE^$ç3jkl72
@@ -29,4 +30,9 @@ Nbsdb:
     system: SystemLog
     kernel: KernelLog
     php: PhpLog
+
   ldapHost: ldap-master.nbs-system.com
+  mongoUrl: mongodb://localhost:27017
+  otrsUrl: http://localhost/otrs/rpc.pl
+  otrsUser: root@localhost
+  otrsPassword: root

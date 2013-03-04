@@ -106,14 +106,21 @@ class OtrsConnector implements Connector {
 
         $result = $client->__soapCall("Dispatch", $callParams);
 
+
         return $result;
     }
 
+    /**
+     * Authenticate a customer user
+     *
+     * @param string $login
+     * @param string $password
+     * @return array client info if authentication was successful, null otherwise
+     */
     public function Authenticate($login, $password) {
         return $this->call(array(
-            "AuthObject", "Auth",
-            "User", $login,
-            "Pw", $password
+            "CustomerUserObject", "CustomerUserDataGet",
+            "User", $login
         ));
     }
 
